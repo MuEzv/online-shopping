@@ -4,30 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c863d7e-4415-49b4-8175-164b0449a3c3" name="Changes" comment="test">
-      <change afterPath="$PROJECT_DIR$/AccountService/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EurekaService/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EurekaService/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EurekaService/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EurekaService/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EurekaService/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EurekaService/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EurekaService/src/main/java/com/project/EurekaService/EurekaServiceApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EurekaService/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EurekaService/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EurekaService/src/test/java/com/project/EurekaService/EurekaServiceApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ItemService/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OrderService/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PaymentService/src/main/resources/application.yml" afterDir="false" />
+    <list default="true" id="2c863d7e-4415-49b4-8175-164b0449a3c3" name="Changes" comment="feat: integrate Eureka server and update microservices to register with it&#10;- Added EurekaServer module&#10;- Configured Eureka client settings for ItemService, OrderService, PaymentService, AccountService, and GatewayService">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EurekaService/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GatewayService/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AccountService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/AccountService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AccountService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AccountService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AccountService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/AccountService/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EurekaService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/EurekaService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EurekaService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/EurekaService/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GatewayService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/GatewayService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GatewayService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/GatewayService/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GatewayService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/GatewayService/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ItemService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PaymentService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GatewayService/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/GatewayService/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GatewayService/target/classes/com/project/gatewayservice/GatewayServiceApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/GatewayService/target/classes/com/project/gatewayservice/GatewayServiceApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemService/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/classes/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,10 +59,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -79,6 +72,9 @@
         <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -98,12 +94,17 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.AccountServiceApplication.executor": "Run",
+    "Spring Boot.EurekaServiceApplication.executor": "Run",
+    "Spring Boot.GatewayServiceApplication.executor": "Run",
+    "Spring Boot.ItemServiceApplication.executor": "Run",
+    "Spring Boot.PaymentServiceApplication.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
     "android.gradle.sync.needed": "true",
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "ms-21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/jennieye/IdeaProjects/online-shopping/AccountService/src/main/resources",
+    "last_opened_file_path": "/Users/jennieye/IdeaProjects/online-shopping/AccountService",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -119,11 +120,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/AccountService" />
+      <recent name="$PROJECT_DIR$/GatewayService" />
+      <recent name="$PROJECT_DIR$/EurekaService" />
       <recent name="$PROJECT_DIR$/AccountService/src/main/resources" />
       <recent name="$PROJECT_DIR$/ItemService/src/main/resources" />
-      <recent name="$PROJECT_DIR$/OrderService/src/main/resources" />
-      <recent name="$PROJECT_DIR$/PaymentService/src/main/resources" />
-      <recent name="$PROJECT_DIR$/EurekaService/src/main/resources" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.project" />
@@ -138,7 +139,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ItemServiceApplication">
+  <component name="RunManager" selected="Spring Boot.AccountServiceApplication">
     <configuration name="AccountServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="AccountService" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.accountservice.AccountServiceApplication" />
@@ -206,7 +207,8 @@
       <workItem from="1754351355623" duration="44000" />
       <workItem from="1754351414011" duration="6176000" />
       <workItem from="1754360504114" duration="584000" />
-      <workItem from="1754377459535" duration="1093000" />
+      <workItem from="1754377459535" duration="1875000" />
+      <workItem from="1754428814574" duration="8166000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <option name="closed" value="true" />
@@ -232,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754358247051</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: integrate Eureka server and update microservices to register with it&#10;- Added EurekaServer module&#10;- Configured Eureka client settings for ItemService, OrderService, PaymentService, AccountService, and GatewayService">
+      <option name="closed" value="true" />
+      <created>1754378719876</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1754378719876</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,6 +270,7 @@
     <MESSAGE value="update frame" />
     <MESSAGE value="update java version to 17" />
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="feat: integrate Eureka server and update microservices to register with it&#10;- Added EurekaServer module&#10;- Configured Eureka client settings for ItemService, OrderService, PaymentService, AccountService, and GatewayService" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: integrate Eureka server and update microservices to register with it&#10;- Added EurekaServer module&#10;- Configured Eureka client settings for ItemService, OrderService, PaymentService, AccountService, and GatewayService" />
   </component>
 </project>

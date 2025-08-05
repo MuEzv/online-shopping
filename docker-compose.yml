@@ -1,66 +1,26 @@
 version: '3.9'
 
 services:
-  item-service:
-    build:
-      context: ./item
-      dockerfile: Dockerfile
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: AccountService
+    ports:
+      - "3307:3306"
     volumes:
-      - ./ItemService:/app
-    ports:
-      - "8081:8081"
-    networks:
-      - microservices-network
-    environment:
-      - SPRING_PROFILES_ACTIVE=dev
-
-  account-service:
-    build:
-      context: ./account
-      dockerfile: Dockerfile
-    ports:
-      - "8082:8082"
-    networks:
-      - microservices-network
-    environment:
-      - SPRING_PROFILES_ACTIVE=dev
-
-  order-service:
-    build:
-      context: ./order
-      dockerfile: Dockerfile
-    ports:
-      - "8083:8083"
-    networks:
-      - microservices-network
-    environment:
-      - SPRING_PROFILES_ACTIVE=dev
-
-  payment-service:
-    build:
-      context: ./payment
-      dockerfile: Dockerfile
-    ports:
-      - "8084:8084"
-    networks:
-      - microservices-network
-    environment:
-      - SPRING_PROFILES_ACTIVE=dev
-
-  gateway-service:
-    build:
-      context: ./gateway
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    networks:
-      - microservices-network
-    environment:
-      - SPRING_PROFILES_ACTIVE=dev
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -proot || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
   eureka-service:
     build:
-      context: ./eureka
+      context: ./EurekaService
       dockerfile: Dockerfile
     ports:
       - "8761:8761"
@@ -69,6 +29,69 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=dev
 
+  gateway-service:
+    build:
+      context: ./GatewayService
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - microservices-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+  account-service:
+    build:
+      context: ./AccountService
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    networks:
+      - microservices-network
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+# 你可以在需要时取消注释下面服务
+
+#  item-service:
+#    build:
+#      context: ./ItemService
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8081:8081"
+#    networks:
+#      - microservices-network
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=dev
+
+#  order-service:
+#    build:
+#      context: ./order
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8083:8083"
+#    networks:
+#      - microservices-network
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=dev
+
+#  payment-service:
+#    build:
+#      context: ./payment
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8084:8084"
+#    networks:
+#      - microservices-network
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=dev
+
 networks:
   microservices-network:
     driver: bridge
+
+volumes:
+  mysql-data:
