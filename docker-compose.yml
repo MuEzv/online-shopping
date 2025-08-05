@@ -1,0 +1,63 @@
+version: '3.9'
+
+services:
+  item-service:
+    build:
+      context: ./item
+      dockerfile: Dockerfile
+    volumes:
+      - ./ItemService:/app
+    ports:
+      - "8081:8081"
+    networks:
+      - microservices-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+  account-service:
+    build:
+      context: ./account
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    networks:
+      - microservices-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+  order-service:
+    build:
+      context: ./order
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    networks:
+      - microservices-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+  payment-service:
+    build:
+      context: ./payment
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    networks:
+      - microservices-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+  gateway-service:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - microservices-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+networks:
+  microservices-network:
+    driver: bridge
