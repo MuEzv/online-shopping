@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: item-service
+
+  data:
+    mongodb:
+      uri: mongodb://vivi:18277003@cluster0.mongodb.net/itemdb?retryWrites=true&w=majority
+
+server:
+  port: 8081
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8761/eureka

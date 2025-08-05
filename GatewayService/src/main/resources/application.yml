@@ -18,3 +18,7 @@ spring:
           uri: http://localhost:8084
           predicates:
             - Path =/account/**
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8761/eureka

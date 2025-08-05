@@ -5,13 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c863d7e-4415-49b4-8175-164b0449a3c3" name="Changes" comment="test">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/online-shopping.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EurekaService/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EurekaService/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EurekaService/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EurekaService/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EurekaService/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EurekaService/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EurekaService/src/main/java/com/project/EurekaService/EurekaServiceApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EurekaService/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EurekaService/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EurekaService/src/test/java/com/project/EurekaService/EurekaServiceApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ItemService/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PaymentService/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AccountService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/AccountService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GatewayService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/GatewayService/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ItemService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,13 +66,17 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -81,7 +102,8 @@
     "android.gradle.sync.needed": "true",
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "ms-21",
-    "last_opened_file_path": "F:/Job/Chuwa/project/online-shopping",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/jennieye/IdeaProjects/online-shopping/AccountService/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -90,11 +112,19 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
+    "run.configurations.included.in.services": "true",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/AccountService/src/main/resources" />
+      <recent name="$PROJECT_DIR$/ItemService/src/main/resources" />
+      <recent name="$PROJECT_DIR$/OrderService/src/main/resources" />
+      <recent name="$PROJECT_DIR$/PaymentService/src/main/resources" />
+      <recent name="$PROJECT_DIR$/EurekaService/src/main/resources" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.project" />
     </key>
@@ -102,6 +132,8 @@
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
         <option value="SpringBootApplicationConfigurationType" />
       </set>
     </option>
@@ -110,6 +142,14 @@
     <configuration name="AccountServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="AccountService" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.accountservice.AccountServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EurekaServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="EurekaService" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.EurekaService.EurekaServiceApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -146,6 +186,14 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -158,6 +206,7 @@
       <workItem from="1754351355623" duration="44000" />
       <workItem from="1754351414011" duration="6176000" />
       <workItem from="1754360504114" duration="584000" />
+      <workItem from="1754377459535" duration="1093000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <option name="closed" value="true" />

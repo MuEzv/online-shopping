@@ -58,6 +58,17 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=dev
 
+  eureka-service:
+    build:
+      context: ./eureka
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - microservices-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
 networks:
   microservices-network:
     driver: bridge

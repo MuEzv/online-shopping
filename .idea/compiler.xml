@@ -11,12 +11,14 @@
         <module name="AccountService" />
         <module name="PaymentService" />
         <module name="GatewayService" />
+        <module name="EurekaService" />
       </profile>
       <profile name="Annotation profile for ItemService" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar" />
         </processorPath>
         <module name="ItemService" />
@@ -31,6 +33,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="AccountService" options="-parameters" />
+      <module name="EurekaService" options="-parameters" />
       <module name="GatewayService" options="-parameters" />
       <module name="ItemService" options="-parameters" />
       <module name="OrderService" options="-parameters" />
