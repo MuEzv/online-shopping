@@ -15,8 +15,8 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -proot || exit 1"]
       interval: 10s
-      timeout: 5s
-      retries: 10
+      timeout: 10s
+      retries: 20
     networks:
       - microservices-network
 
@@ -63,15 +63,26 @@ services:
 
 
   item-service:
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     build:
       context: ./ItemService
       dockerfile: Dockerfile
+#---------DevTool hotupdate
+    volumes:
+      - ./src:/ItemService/src
+#      - ./target:/ItemService/target
+    environment:
+      - SPRING_DEVTOOLS_RESTART_TRIGGER_FILE=/ItemService/src
+      - SPRING_PROFILES_ACTIVE=dev
+#-----------------------
     ports:
       - "8081:8081"
     networks:
       - microservices-network
-    environment:
-      - SPRING_PROFILES_ACTIVE=dev
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=dev
     depends_on:
       eureka-service:
         condition: service_started
