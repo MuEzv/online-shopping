@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c863d7e-4415-49b4-8175-164b0449a3c3" name="Changes" comment="feat(eureka): add Eureka server and client pom dependency, update Docker Compose&#10;&#10;- Added Eureka client dependencies to AccountService and GatewayService&#10;- Updated Docker Compose to include Eureka, Gateway, MySQL, and AccountService&#10;- Verified that Eureka, Gateway, and MySQL start correctly&#10;- Note: AccountService currently fails to connect to MySQL due to a connection issue (to be resolved)">
+    <list default="true" id="2c863d7e-4415-49b4-8175-164b0449a3c3" name="Changes" comment="feat(eureka): AccountService currently fails to connect to MySQL due to a connection issue is resolved&#10;&#10;- Added microservicenetwork to mysql in dockercompose">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AccountService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AccountService/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AccountService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/AccountService/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemService/target/ItemService-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/ItemService-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemService/target/ItemService-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/ItemService-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemService/target/surefire-reports/2025-08-04T17-09-10_452.dumpstream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemService/target/surefire-reports/2025-08-04T17-12-19_767.dumpstream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemService/target/surefire-reports/2025-08-04T17-13-54_910.dumpstream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemService/target/surefire-reports/TEST-com.project.itemservice.ItemServiceApplicationTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemService/target/surefire-reports/com.project.itemservice.ItemServiceApplicationTests.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,39 +79,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.AccountServiceApplication.executor": "Run",
-    "Spring Boot.EurekaServiceApplication.executor": "Run",
-    "Spring Boot.GatewayServiceApplication.executor": "Run",
-    "Spring Boot.ItemServiceApplication.executor": "Run",
-    "Spring Boot.PaymentServiceApplication.executor": "Run",
-    "WebServerToolWindowFactoryState": "false",
-    "android.gradle.sync.needed": "true",
-    "git-widget-placeholder": "main",
-    "jdk.selected.JAVA_MODULE": "ms-21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/jennieye/IdeaProjects/online-shopping/AccountService",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.AccountServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.EurekaServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.GatewayServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ItemServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PaymentServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;ms-21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/jennieye/IdeaProjects/online-shopping/AccountService&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/AccountService" />
@@ -126,7 +133,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AccountServiceApplication">
+  <component name="RunManager" selected="Spring Boot.ItemServiceApplication">
     <configuration name="AccountServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="AccountService" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.accountservice.AccountServiceApplication" />
@@ -195,7 +202,8 @@
       <workItem from="1754351414011" duration="6176000" />
       <workItem from="1754360504114" duration="584000" />
       <workItem from="1754377459535" duration="1875000" />
-      <workItem from="1754428814574" duration="10696000" />
+      <workItem from="1754428814574" duration="15305000" />
+      <workItem from="1754464319441" duration="3336000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <option name="closed" value="true" />
@@ -237,7 +245,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754437293306</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat(eureka): AccountService currently fails to connect to MySQL due to a connection issue is resolved&#10;&#10;- Added microservicenetwork to mysql in dockercompose">
+      <option name="closed" value="true" />
+      <created>1754439825131</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1754439825131</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -267,6 +283,7 @@
     <MESSAGE value="test" />
     <MESSAGE value="feat: integrate Eureka server and update microservices to register with it&#10;- Added EurekaServer module&#10;- Configured Eureka client settings for ItemService, OrderService, PaymentService, AccountService, and GatewayService" />
     <MESSAGE value="feat(eureka): add Eureka server and client pom dependency, update Docker Compose&#10;&#10;- Added Eureka client dependencies to AccountService and GatewayService&#10;- Updated Docker Compose to include Eureka, Gateway, MySQL, and AccountService&#10;- Verified that Eureka, Gateway, and MySQL start correctly&#10;- Note: AccountService currently fails to connect to MySQL due to a connection issue (to be resolved)" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(eureka): add Eureka server and client pom dependency, update Docker Compose&#10;&#10;- Added Eureka client dependencies to AccountService and GatewayService&#10;- Updated Docker Compose to include Eureka, Gateway, MySQL, and AccountService&#10;- Verified that Eureka, Gateway, and MySQL start correctly&#10;- Note: AccountService currently fails to connect to MySQL due to a connection issue (to be resolved)" />
+    <MESSAGE value="feat(eureka): AccountService currently fails to connect to MySQL due to a connection issue is resolved&#10;&#10;- Added microservicenetwork to mysql in dockercompose" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(eureka): AccountService currently fails to connect to MySQL due to a connection issue is resolved&#10;&#10;- Added microservicenetwork to mysql in dockercompose" />
   </component>
 </project>

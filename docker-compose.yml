@@ -41,6 +41,9 @@ services:
       - microservices-network
     environment:
       - SPRING_PROFILES_ACTIVE=dev
+    depends_on:
+      eureka-service:
+        condition: service_started
 
   account-service:
     build:
@@ -53,22 +56,25 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+      eureka-service:
+        condition: service_started
     environment:
       - SPRING_PROFILES_ACTIVE=dev
 
-# 你可以在需要时取消注释下面服务
 
-#  item-service:
-#    build:
-#      context: ./ItemService
-#      dockerfile: Dockerfile
-#    ports:
-#      - "8081:8081"
-#    networks:
-#      - microservices-network
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=dev
-
+  item-service:
+    build:
+      context: ./ItemService
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    networks:
+      - microservices-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    depends_on:
+      eureka-service:
+        condition: service_started
 #  order-service:
 #    build:
 #      context: ./order
