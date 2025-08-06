@@ -1,3 +1,3 @@
-com\project\itemservice\ItemServiceApplication.class
-com\project\repository\ItemRepository.class
-com\project\entity\Item.class
+com/project/repository/ItemRepository.class
+com/project/entity/Item.class
+com/project/itemservice/ItemServiceApplication.class

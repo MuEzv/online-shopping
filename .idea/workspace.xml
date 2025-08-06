@@ -4,17 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c863d7e-4415-49b4-8175-164b0449a3c3" name="Changes" comment="feat(eureka): AccountService currently fails to connect to MySQL due to a connection issue is resolved&#10;&#10;- Added microservicenetwork to mysql in dockercompose">
+    <list default="true" id="2c863d7e-4415-49b4-8175-164b0449a3c3" name="Changes" comment="feat(item-service): enable Docker support and fix MongoDB connection&#10;&#10;- ItemService now runs successfully in Docker&#10;- Updated POM dependencies&#10;- Fixed MongoDB URI to connect to Atlas">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ItemService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ItemService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ItemService/target/ItemService-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/ItemService-0.0.1-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ItemService/target/ItemService-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/ItemService-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ItemService/target/surefire-reports/2025-08-04T17-09-10_452.dumpstream" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ItemService/target/surefire-reports/2025-08-04T17-12-19_767.dumpstream" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ItemService/target/surefire-reports/2025-08-04T17-13-54_910.dumpstream" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ItemService/target/surefire-reports/TEST-com.project.itemservice.ItemServiceApplicationTests.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ItemService/target/surefire-reports/com.project.itemservice.ItemServiceApplicationTests.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -203,7 +202,7 @@
       <workItem from="1754360504114" duration="584000" />
       <workItem from="1754377459535" duration="1875000" />
       <workItem from="1754428814574" duration="15305000" />
-      <workItem from="1754464319441" duration="3336000" />
+      <workItem from="1754464319441" duration="10965000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <option name="closed" value="true" />
@@ -253,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754439825131</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="feat(item-service): enable Docker support and fix MongoDB connection&#10;&#10;- ItemService now runs successfully in Docker&#10;- Updated POM dependencies&#10;- Fixed MongoDB URI to connect to Atlas">
+      <option name="closed" value="true" />
+      <created>1754496958740</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1754496958740</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,6 +291,7 @@
     <MESSAGE value="feat: integrate Eureka server and update microservices to register with it&#10;- Added EurekaServer module&#10;- Configured Eureka client settings for ItemService, OrderService, PaymentService, AccountService, and GatewayService" />
     <MESSAGE value="feat(eureka): add Eureka server and client pom dependency, update Docker Compose&#10;&#10;- Added Eureka client dependencies to AccountService and GatewayService&#10;- Updated Docker Compose to include Eureka, Gateway, MySQL, and AccountService&#10;- Verified that Eureka, Gateway, and MySQL start correctly&#10;- Note: AccountService currently fails to connect to MySQL due to a connection issue (to be resolved)" />
     <MESSAGE value="feat(eureka): AccountService currently fails to connect to MySQL due to a connection issue is resolved&#10;&#10;- Added microservicenetwork to mysql in dockercompose" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(eureka): AccountService currently fails to connect to MySQL due to a connection issue is resolved&#10;&#10;- Added microservicenetwork to mysql in dockercompose" />
+    <MESSAGE value="feat(item-service): enable Docker support and fix MongoDB connection&#10;&#10;- ItemService now runs successfully in Docker&#10;- Updated POM dependencies&#10;- Fixed MongoDB URI to connect to Atlas" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(item-service): enable Docker support and fix MongoDB connection&#10;&#10;- ItemService now runs successfully in Docker&#10;- Updated POM dependencies&#10;- Fixed MongoDB URI to connect to Atlas" />
   </component>
 </project>
