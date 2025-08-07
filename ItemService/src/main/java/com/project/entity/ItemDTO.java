@@ -1,20 +1,16 @@
 package com.project.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import java.util.*;
 
-@Document(collection = "items")
-@NoArgsConstructor
-@AllArgsConstructor
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 @Getter
 @Setter
-public class Item {
-    @Id
+
+public class ItemDTO {
     private Long id;
     private String name;
     private String description;
@@ -22,7 +18,9 @@ public class Item {
     private String upc;
     private List<String> images;
     private Map<String, String> metadata;
-    private Inventory inventory;
+    private Integer totalInventory; // 总库存
+    private Integer reservedInventory; // 预留库存
+    private Integer availableInventory; // 可用库存
     private Date createdAt;
     private Date updatedAt;
 
