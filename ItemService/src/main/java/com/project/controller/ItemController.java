@@ -31,7 +31,7 @@ public class ItemController {
         return ResponseEntity.ok(deletedItem);
     }
 
-    @PostMapping("/getAll")
+    @GetMapping("/getAll")
     public ResponseEntity<List<ItemDTO>> getAllItems() {
         List<ItemDTO> items = itemService.getAllItems();
         return ResponseEntity.ok(items);

@@ -1,6 +1,5 @@
 package com.project.itemservice;
 
-import com.project.entity.Item;
 import com.project.entity.ItemDTO;
 import java.util.*;
 
