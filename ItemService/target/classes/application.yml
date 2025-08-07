@@ -5,6 +5,7 @@ spring:
   data:
     mongodb:
       uri: mongodb+srv://vivi:18277003@cluster0.hzosnnm.mongodb.net/items?retryWrites=true&w=majority
+
 server:
   port: 8081
 

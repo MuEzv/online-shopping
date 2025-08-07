@@ -1,0 +1,5 @@
+.idea/
+ItemService/target/
+*.jar
+*.log
+*.tmp

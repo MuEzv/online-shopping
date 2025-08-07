@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 e:\Study\ChuwaProject\online-shopping\ItemService\src\main\java\com\project\entity\Item.java
 e:\Study\ChuwaProject\online-shopping\ItemService\src\main\java\com\project\itemservice\ItemService.java
 e:\Study\ChuwaProject\online-shopping\ItemService\src\main\java\com\project\itemservice\itemServiceImpl.java
@@ -6,3 +7,8 @@ e:\Study\ChuwaProject\online-shopping\ItemService\src\main\java\com\project\Item
 e:\Study\ChuwaProject\online-shopping\ItemService\src\main\java\com\project\repository\ItemRepository.java
 e:\Study\ChuwaProject\online-shopping\ItemService\src\main\java\com\project\controller\ItemController.java
 e:\Study\ChuwaProject\online-shopping\ItemService\src\main\java\com\project\entity\ItemDTO.java
+=======
+/Users/jennieye/IdeaProjects/online-shopping/ItemService/src/main/java/com/project/repository/ItemRepository.java
+/Users/jennieye/IdeaProjects/online-shopping/ItemService/src/main/java/com/project/entity/Item.java
+/Users/jennieye/IdeaProjects/online-shopping/ItemService/src/main/java/com/project/itemservice/ItemServiceApplication.java
+>>>>>>> origin/main
