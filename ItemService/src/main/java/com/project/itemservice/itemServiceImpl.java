@@ -61,4 +61,65 @@ public class itemServiceImpl implements ItemService {
         Item savedItem = itemRepository.save(item);
         return toItemDTO(savedItem);
     }
+
+    @Override
+    public ItemDTO updateItem(Long id, ItemDTO itemDTO) {
+        Item existingItem = itemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item not found with id: " + id));
+        existingItem.setName(itemDTO.getName());
+        existingItem.setDescription(itemDTO.getDescription());
+        existingItem.setPrice(itemDTO.getPrice());
+        existingItem.setUpc(itemDTO.getUpc());
+        existingItem.setImages(itemDTO.getImages());
+        existingItem.setMetadata(itemDTO.getMetadata());
+        existingItem.getInventory().setTotal(itemDTO.getTotalInventory());
+        existingItem.getInventory().setAvailble(itemDTO.getAvailableInventory());
+        existingItem.getInventory().setReserved(itemDTO.getReservedInventory());
+        existingItem.setUpdatedAt(new Date());
+        Item updatedItem = itemRepository.save(existingItem);
+        return toItemDTO(updatedItem);
+    }
+
+    @Override
+    public ItemDTO deleteItembyId(Long id) {
+        Item item = itemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item not found with id: " + id));
+        itemRepository.delete(item);
+        return toItemDTO(item);
+    }
+
+    @Override
+    public List<ItemDTO> getAllItems() {
+        List<Item> items = itemRepository.findAll();
+        List<ItemDTO> itemDTOs = new ArrayList<>();
+        for (Item item : items) {
+            itemDTOs.add(toItemDTO(item));
+        }
+        return itemDTOs;
+    }
+
+    @Override
+    public ItemDTO getItemById(Long id) {
+        Item item = itemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item not found with id: " + id));
+        return toItemDTO(item);
+    }
+
+    @Override
+    public ItemDTO getItemByUpc(String upc) {
+        Item item = itemRepository.findByUpc(upc)
+                .orElseThrow(() -> new RuntimeException("Item not found with UPC: " + upc));
+        return toItemDTO(item);
+    }
+
+    @Override
+    public List<ItemDTO> searchItemsByName(String name) {
+        List<Item> items = itemRepository.findByNameContainingIgnoreCase(name);
+        List<ItemDTO> itemDTOs = new ArrayList<>();
+        for (Item item : items) {
+            itemDTOs.add(toItemDTO(item));
+        }
+        return itemDTOs;
+    }
+
 }
