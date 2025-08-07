@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+com\project\entity\ItemDTO.class
+com\project\ItemServiceApplication.class
+com\project\repository\ItemRepository.class
+com\project\entity\Item.class
+com\project\controller\ItemController.class
+com\project\entity\Inventory.class
+com\project\itemservice\itemServiceImpl.class
+com\project\itemservice\ItemService.class
+=======
 com/project/repository/ItemRepository.class
 com/project/entity/Item.class
 com/project/itemservice/ItemServiceApplication.class
+>>>>>>> origin/main

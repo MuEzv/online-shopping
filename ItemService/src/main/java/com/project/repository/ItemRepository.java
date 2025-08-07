@@ -6,5 +6,10 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.*;
 
 public interface ItemRepository extends MongoRepository<Item, Long> {
-    List<Item> findByNameContaining(String name);
+    List<Item> findByNameContainingIgnoreCase(String name);
+
+    Optional<Item> findByUpc(String upc);
+
+    Optional<Item> findById(Long id);
+
 }
