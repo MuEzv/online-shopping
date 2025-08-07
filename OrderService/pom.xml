@@ -50,6 +50,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+<!--        Cassandra online server-->
+        <dependency>
+            <groupId>com.datastax.astra</groupId>
+            <artifactId>astra-db-java</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
