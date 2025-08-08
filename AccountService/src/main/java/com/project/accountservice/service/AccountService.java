@@ -34,6 +34,21 @@ public class AccountService implements AccountServiceImpl {
         return mapToResponse(saved);
     }
 
+    @Override
+    public Optional<AccountResponseDTO> updateAccount(String email, AccountRequestDTO request) {
+        return repository.findByEmail(email).map(account -> {
+            account.setUsername(request.getUsername());
+            account.setShippingAddress(request.getShippingAddress());
+            account.setBillingAddress(request.getBillingAddress());
+            account.setPaymentMethod(request.getPaymentMethod());
+            if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+                account.setPassword(passwordEncoder.encode(request.getPassword()));
+            }
+            Account updated = repository.save(account);
+            return mapToResponse(updated);
+        });
+    }
+
     public Optional<AccountResponseDTO> getAccountByEmail(String email) {
         return repository.findByEmail(email).map(this::mapToResponse);
     }

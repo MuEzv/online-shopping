@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/account")
 public class AccountController {
@@ -18,11 +20,22 @@ public class AccountController {
         return ResponseEntity.ok(service.createAccount(request));
     }
 
+    @PutMapping("/{email}")
+    public ResponseEntity<AccountResponseDTO> updateAccount(
+            @PathVariable String email,
+            @RequestBody AccountRequestDTO request) {
+        return service.updateAccount(email, request)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @GetMapping("/{email}")
     public ResponseEntity<AccountResponseDTO> getAccount(@PathVariable String email) {
         return service.getAccountByEmail(email)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+
 
 }
