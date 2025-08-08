@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-
+    <list default="true" id="2d27c5f5-cdcf-45f4-98eb-c53c0eb6968c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/project/config/AstraDBConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/project/controller/OrderController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/project/service/OrderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/project/service/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/project/orderservice/OrderServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/project/OrderServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/test/java/com/project/orderservice/OrderServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/project/service/OrderServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/project/orderservice/OrderServiceApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/test-classes/com/project/orderservice/OrderServiceApplicationTests.class" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -117,7 +128,20 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ItemServiceApplication">
+  <component name="RunManager" selected="Spring Boot.OrderServiceApplication">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="PaymentService" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="PaymentService" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AccountServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="AccountService" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.accountservice.AccountServiceApplication" />
@@ -151,7 +175,7 @@
     <configuration name="OrderServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="OrderService" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.orderservice.OrderServiceApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.OrderServiceApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -187,7 +211,7 @@
       <workItem from="1754360504114" duration="584000" />
       <workItem from="1754377459535" duration="1875000" />
       <workItem from="1754428814574" duration="15305000" />
-    </task>>
+    </task>
     <task id="LOCAL-00001" summary="update frame">
       <option name="closed" value="true" />
       <created>1754345810154</created>
