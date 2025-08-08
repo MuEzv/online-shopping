@@ -79,8 +79,6 @@ services:
 #-----------------------
     ports:
       - "8081:8081"
-    dns:
-      - 8.8.8.8
     networks:
       - microservices-network
 #    environment:
