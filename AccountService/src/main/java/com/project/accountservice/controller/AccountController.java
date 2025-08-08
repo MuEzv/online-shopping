@@ -36,6 +36,10 @@ public class AccountController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-
-
+    @PostMapping("/login")
+    public ResponseEntity<AccountResponseDTO> login(@RequestBody AccountRequestDTO request) {
+        return service.login(request.getEmail(), request.getPassword())
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(401).build());
+    }
 }

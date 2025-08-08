@@ -62,4 +62,10 @@ public class AccountService implements AccountServiceImpl {
                 acc.getPaymentMethod()
         );
     }
+
+    public Optional<AccountResponseDTO> login(String email, String password) {
+        return repository.findByEmail(email)
+                .filter(account -> passwordEncoder.matches(password, account.getPassword()))
+                .map(this::mapToResponse);
+    }
 }

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c863d7e-4415-49b4-8175-164b0449a3c3" name="Changes" comment="feat(account): implement createAccount and findAccountByEmail endpoints">
+    <list default="true" id="2c863d7e-4415-49b4-8175-164b0449a3c3" name="Changes" comment="feat(account): implement updateAccount endpoints">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AccountService/src/main/java/com/project/accountservice/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AccountService/src/main/java/com/project/accountservice/controller/AccountController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AccountService/src/main/java/com/project/accountservice/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/AccountService/src/main/java/com/project/accountservice/service/AccountService.java" afterDir="false" />
@@ -208,7 +208,7 @@
       <workItem from="1754464319441" duration="13423000" />
       <workItem from="1754599723459" duration="346000" />
       <workItem from="1754600114254" duration="963000" />
-      <workItem from="1754601313230" duration="11029000" />
+      <workItem from="1754601313230" duration="12109000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <option name="closed" value="true" />
@@ -282,7 +282,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754615183813</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat(account): implement updateAccount endpoints">
+      <option name="closed" value="true" />
+      <created>1754629208640</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1754629208640</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -329,6 +337,7 @@
     <MESSAGE value="feat(item-service): enable Docker support and fix MongoDB connection&#10;&#10;- ItemService now runs successfully in Docker&#10;- Updated POM dependencies&#10;- Fixed MongoDB URI to connect to Atlas" />
     <MESSAGE value="feat(item-service): enable Docker support and fix MongoDB connection and add dns 8.8.8.8 to dcoker" />
     <MESSAGE value="feat(account): implement createAccount and findAccountByEmail endpoints" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(account): implement createAccount and findAccountByEmail endpoints" />
+    <MESSAGE value="feat(account): implement updateAccount endpoints" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(account): implement updateAccount endpoints" />
   </component>
 </project>
