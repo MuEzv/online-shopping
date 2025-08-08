@@ -4,17 +4,55 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c863d7e-4415-49b4-8175-164b0449a3c3" name="Changes" comment="feat(item-service): enable Docker support and fix MongoDB connection&#10;&#10;- ItemService now runs successfully in Docker&#10;- Updated POM dependencies&#10;- Fixed MongoDB URI to connect to Atlas">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="2c863d7e-4415-49b4-8175-164b0449a3c3" name="Changes" comment="feat(account): implement createAccount and findAccountByEmail endpoints">
+      <change afterPath="$PROJECT_DIR$/AccountService copy/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/HELP.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/src/main/java/com/project/accountservice/AccountServiceApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/src/main/java/com/project/accountservice/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/src/main/java/com/project/accountservice/controller/AccountController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/src/main/java/com/project/accountservice/entity/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/src/main/java/com/project/accountservice/payload/AccountRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/src/main/java/com/project/accountservice/payload/AccountResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/src/main/java/com/project/accountservice/repository/AccountRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/src/main/java/com/project/accountservice/service/AccountService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/src/main/java/com/project/accountservice/service/AccountServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/src/test/java/com/project/accountservice/AccountServiceApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/AccountService-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/AccountService-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/classes/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/classes/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/classes/com/project/accountservice/AccountServiceApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/classes/com/project/accountservice/config/SecurityConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/classes/com/project/accountservice/controller/AccountController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/classes/com/project/accountservice/entity/Account.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/classes/com/project/accountservice/payload/AccountRequestDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/classes/com/project/accountservice/payload/AccountResponseDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/classes/com/project/accountservice/repository/AccountRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/classes/com/project/accountservice/service/AccountService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/classes/com/project/accountservice/service/AccountServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService copy/target/test-classes/com/project/accountservice/AccountServiceApplicationTests.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService/src/main/java/com/project/accountservice/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService/src/main/java/com/project/accountservice/controller/AccountController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService/src/main/java/com/project/accountservice/entity/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService/src/main/java/com/project/accountservice/payload/AccountRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService/src/main/java/com/project/accountservice/payload/AccountResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService/src/main/java/com/project/accountservice/repository/AccountRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService/src/main/java/com/project/accountservice/service/AccountService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AccountService/src/main/java/com/project/accountservice/service/AccountServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ItemService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ItemService/target/ItemService-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/ItemService-0.0.1-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ItemService/target/ItemService-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/ItemService-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/ItemService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AccountService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AccountService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AccountService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/AccountService/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +87,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
@@ -73,44 +116,47 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="30q2UAhQn32YK8Sl0pXZLHxQsbx" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.AccountServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.EurekaServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.GatewayServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ItemServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.PaymentServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;ms-21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/jennieye/IdeaProjects/online-shopping/AccountService&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.AccountServiceApplication.executor": "Run",
+    "Spring Boot.EurekaServiceApplication.executor": "Run",
+    "Spring Boot.GatewayServiceApplication.executor": "Run",
+    "Spring Boot.ItemServiceApplication.executor": "Run",
+    "Spring Boot.PaymentServiceApplication.executor": "Run",
+    "WebServerToolWindowFactoryState": "false",
+    "android.gradle.sync.needed": "true",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "ms-21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/jennieye/IdeaProjects/online-shopping/AccountService",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/AccountService" />
@@ -132,7 +178,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ItemServiceApplication">
+  <component name="RunManager" selected="Spring Boot.AccountServiceApplication">
     <configuration name="AccountServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="AccountService" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.accountservice.AccountServiceApplication" />
@@ -202,7 +248,10 @@
       <workItem from="1754360504114" duration="584000" />
       <workItem from="1754377459535" duration="1875000" />
       <workItem from="1754428814574" duration="15305000" />
-      <workItem from="1754464319441" duration="10965000" />
+      <workItem from="1754464319441" duration="13423000" />
+      <workItem from="1754599723459" duration="346000" />
+      <workItem from="1754600114254" duration="963000" />
+      <workItem from="1754601313230" duration="9675000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <option name="closed" value="true" />
@@ -260,7 +309,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754496958740</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat(item-service): enable Docker support and fix MongoDB connection and add dns 8.8.8.8 to dcoker">
+      <option name="closed" value="true" />
+      <created>1754506414422</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1754506414422</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,6 +335,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <ignored-roots>
       <path value="$PROJECT_DIR$/AccountService" />
       <path value="$PROJECT_DIR$/GatewayService" />
@@ -292,6 +350,8 @@
     <MESSAGE value="feat(eureka): add Eureka server and client pom dependency, update Docker Compose&#10;&#10;- Added Eureka client dependencies to AccountService and GatewayService&#10;- Updated Docker Compose to include Eureka, Gateway, MySQL, and AccountService&#10;- Verified that Eureka, Gateway, and MySQL start correctly&#10;- Note: AccountService currently fails to connect to MySQL due to a connection issue (to be resolved)" />
     <MESSAGE value="feat(eureka): AccountService currently fails to connect to MySQL due to a connection issue is resolved&#10;&#10;- Added microservicenetwork to mysql in dockercompose" />
     <MESSAGE value="feat(item-service): enable Docker support and fix MongoDB connection&#10;&#10;- ItemService now runs successfully in Docker&#10;- Updated POM dependencies&#10;- Fixed MongoDB URI to connect to Atlas" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(item-service): enable Docker support and fix MongoDB connection&#10;&#10;- ItemService now runs successfully in Docker&#10;- Updated POM dependencies&#10;- Fixed MongoDB URI to connect to Atlas" />
+    <MESSAGE value="feat(item-service): enable Docker support and fix MongoDB connection and add dns 8.8.8.8 to dcoker" />
+    <MESSAGE value="feat(account): implement createAccount and findAccountByEmail endpoints" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(account): implement createAccount and findAccountByEmail endpoints" />
   </component>
 </project>
