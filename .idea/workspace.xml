@@ -5,16 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d27c5f5-cdcf-45f4-98eb-c53c0eb6968c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/project/config/AstraDBConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/project/controller/OrderController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/project/service/OrderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/project/service/OrderServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PaymentService/src/main/java/com/project/config/AstraDBConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PaymentService/src/main/java/com/project/service/PaymentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PaymentService/src/main/java/com/project/service/PaymentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/project/orderservice/OrderServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/project/OrderServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/test/java/com/project/orderservice/OrderServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/project/service/OrderServiceApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/project/orderservice/OrderServiceApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/test-classes/com/project/orderservice/OrderServiceApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/project/service/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/project/service/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/project/service/OrderServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/project/service/OrderServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/src/main/java/com/project/paymentservice/PaymentServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/src/main/java/com/project/PaymentServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/src/test/java/com/project/paymentservice/PaymentServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/src/test/java/com/project/service/PaymentServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/classes/com/project/paymentservice/PaymentServiceApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/test-classes/com/project/paymentservice/PaymentServiceApplicationTests.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,39 +77,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.AccountServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.EurekaServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.GatewayServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ItemServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.PaymentServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;ms-21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Study/ChuwaProject/online-shopping&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.AccountServiceApplication.executor": "Run",
+    "Spring Boot.EurekaServiceApplication.executor": "Run",
+    "Spring Boot.GatewayServiceApplication.executor": "Run",
+    "Spring Boot.ItemServiceApplication.executor": "Run",
+    "Spring Boot.PaymentServiceApplication.executor": "Run",
+    "WebServerToolWindowFactoryState": "false",
+    "android.gradle.sync.needed": "true",
+    "git-widget-placeholder": "config",
+    "jdk.selected.JAVA_MODULE": "ms-21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/Study/ChuwaProject/online-shopping",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/AccountService" />
@@ -118,6 +121,9 @@
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.project" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.project.config" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
@@ -128,20 +134,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.OrderServiceApplication">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="PaymentService" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="PaymentService" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Spring Boot.PaymentServiceApplication">
     <configuration name="AccountServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="AccountService" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.accountservice.AccountServiceApplication" />
@@ -183,7 +176,7 @@
     <configuration name="PaymentServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="PaymentService" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.paymentservice.PaymentServiceApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.PaymentServiceApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -200,7 +193,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2c863d7e-4415-49b4-8175-164b0449a3c3" name="Changes" comment="" />
+      <changelist id="2d27c5f5-cdcf-45f4-98eb-c53c0eb6968c" name="Changes" comment="" />
       <created>1754340798550</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -211,6 +204,7 @@
       <workItem from="1754360504114" duration="584000" />
       <workItem from="1754377459535" duration="1875000" />
       <workItem from="1754428814574" duration="15305000" />
+      <workItem from="1754627270482" duration="1039000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <option name="closed" value="true" />
