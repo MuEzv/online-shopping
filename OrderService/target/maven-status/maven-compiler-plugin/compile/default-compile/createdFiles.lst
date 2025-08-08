@@ -1,3 +1,5 @@
+com\project\controller\OrderController.class
 com\project\OrderServiceApplication.class
-AstraDBConnection.class
+com\project\service\OrderServiceImpl.class
+com\project\config\AstraDBConnection.class
 com\project\service\OrderService.class

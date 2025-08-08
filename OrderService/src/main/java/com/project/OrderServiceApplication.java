@@ -7,7 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 
-@SpringBootApplication(exclude = {CassandraDataAutoConfiguration.class})
+@SpringBootApplication(exclude = {
+        CassandraDataAutoConfiguration.class,
+        org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfiguration.class
+})
 public class OrderServiceApplication {
 
     public static void main(String[] args) {
