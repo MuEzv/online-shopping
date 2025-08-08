@@ -3,11 +3,11 @@ spring:
     name: account-service
 
   datasource:
-#    url: jdbc:mysql://mysql:3306/AccountService
-    url: jdbc:mysql://host.docker.internal:3306/AccountService
+    url: jdbc:mysql://mysql:3306/AccountService
+#    url: jdbc:mysql://host.docker.internal:3306/AccountService
     username: root
-#    password: root
-    password: yc990829
+    password: root
+#    password: yc990829
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       connection-timeout: 30000
