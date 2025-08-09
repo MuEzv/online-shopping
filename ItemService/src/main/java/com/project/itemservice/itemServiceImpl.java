@@ -2,7 +2,7 @@ package com.project.itemservice;
 
 import com.project.entity.Inventory;
 import com.project.entity.Item;
-import com.project.entity.ItemDTO;
+import com.project.payload.*;
 import com.project.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +15,11 @@ public class itemServiceImpl implements ItemService {
     ItemRepository itemRepository;
 
     // ItemDTO ====> Item
-    private Item toItem(ItemDTO itemDTO) {
+    private Item toItem(ItemRequestDTO itemDTO) {
         Item item = new Item();
         item.setId(itemDTO.getId());
         item.setName(itemDTO.getName());
-        item.setDescription(item.getDescription());
+        item.setDescription(itemDTO.getDescription());
         item.setPrice(itemDTO.getPrice());
         item.setImages(itemDTO.getImages());
         item.setMetadata(itemDTO.getMetadata());
@@ -35,35 +35,29 @@ public class itemServiceImpl implements ItemService {
     }
 
     // Item ===> ItemDTO
-    private ItemDTO toItemDTO(Item item) {
-        ItemDTO itemDTO = new ItemDTO();
-        itemDTO.setName(item.getName());
+    private ItemResponseDTO toResponseDTO(Item item) {
+        ItemResponseDTO itemDTO = new ItemResponseDTO();
         itemDTO.setId(item.getId());
+        itemDTO.setName(item.getName());
         itemDTO.setDescription(item.getDescription());
         itemDTO.setPrice(item.getPrice());
         itemDTO.setUpc(item.getUpc());
         itemDTO.setImages(item.getImages());
-        itemDTO.setMetadata(item.getMetadata());
-        itemDTO.setCreatedAt(item.getCreatedAt());
+        itemDTO.setAvailableInventory(item.getInventory().getAvailble());
         itemDTO.setUpdatedAt(item.getUpdatedAt());
-        Inventory inventory = item.getInventory();
-        itemDTO.setTotalInventory(inventory.getTotal());
-        itemDTO.setAvailableInventory(inventory.getAvailble());
-        itemDTO.setReservedInventory(inventory.getReserved());
         return itemDTO;
     }
-
     @Override
-    public ItemDTO createItem(ItemDTO itemDTO) {
+    public ItemDTO createItem(ItemRequestDTO itemDTO) {
         Item item = toItem(itemDTO);
         item.setCreatedAt(new Date());
         item.setUpdatedAt(new Date());
         Item savedItem = itemRepository.save(item);
-        return toItemDTO(savedItem);
+        return toResponseDTO(savedItem);
     }
 
     @Override
-    public ItemDTO updateItem(Long id, ItemDTO itemDTO) {
+    public ItemDTO updateItem(Long id, ItemRequestDTO itemDTO) {
         Item existingItem = itemRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Item not found with id: " + id));
         existingItem.setName(itemDTO.getName());
@@ -72,12 +66,16 @@ public class itemServiceImpl implements ItemService {
         existingItem.setUpc(itemDTO.getUpc());
         existingItem.setImages(itemDTO.getImages());
         existingItem.setMetadata(itemDTO.getMetadata());
+        // Ensure Inventory is not null
+        if (existingItem.getInventory() == null) {
+            existingItem.setInventory(new Inventory());
+        }
         existingItem.getInventory().setTotal(itemDTO.getTotalInventory());
         existingItem.getInventory().setAvailble(itemDTO.getAvailableInventory());
         existingItem.getInventory().setReserved(itemDTO.getReservedInventory());
         existingItem.setUpdatedAt(new Date());
         Item updatedItem = itemRepository.save(existingItem);
-        return toItemDTO(updatedItem);
+        return toResponseDTO(updatedItem);
     }
 
     @Override
@@ -85,7 +83,7 @@ public class itemServiceImpl implements ItemService {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Item not found with id: " + id));
         itemRepository.delete(item);
-        return toItemDTO(item);
+        return toResponseDTO(item);
     }
 
     @Override
@@ -93,7 +91,7 @@ public class itemServiceImpl implements ItemService {
         List<Item> items = itemRepository.findAll();
         List<ItemDTO> itemDTOs = new ArrayList<>();
         for (Item item : items) {
-            itemDTOs.add(toItemDTO(item));
+            itemDTOs.add(toResponseDTO(item));
         }
         return itemDTOs;
     }
@@ -102,14 +100,14 @@ public class itemServiceImpl implements ItemService {
     public ItemDTO getItemById(Long id) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Item not found with id: " + id));
-        return toItemDTO(item);
+        return toResponseDTO(item);
     }
 
     @Override
     public ItemDTO getItemByUpc(String upc) {
         Item item = itemRepository.findByUpc(upc)
                 .orElseThrow(() -> new RuntimeException("Item not found with UPC: " + upc));
-        return toItemDTO(item);
+        return toResponseDTO(item);
     }
 
     @Override
@@ -117,7 +115,7 @@ public class itemServiceImpl implements ItemService {
         List<Item> items = itemRepository.findByNameContainingIgnoreCase(name);
         List<ItemDTO> itemDTOs = new ArrayList<>();
         for (Item item : items) {
-            itemDTOs.add(toItemDTO(item));
+            itemDTOs.add(toResponseDTO(item));
         }
         return itemDTOs;
     }

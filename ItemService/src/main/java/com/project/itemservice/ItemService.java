@@ -1,13 +1,14 @@
 package com.project.itemservice;
 
-import com.project.entity.ItemDTO;
+import com.project.payload.*;
+
 import java.util.*;
 
 public interface ItemService {
     // Define methods that ItemService should implement
-    ItemDTO createItem(ItemDTO itemDTO);
+    ItemDTO createItem(ItemRequestDTO itemDTO);
 
-    ItemDTO updateItem(Long id, ItemDTO itemDTO);
+    ItemDTO updateItem(Long id, ItemRequestDTO itemDTO);
 
     ItemDTO deleteItembyId(Long id);
 
