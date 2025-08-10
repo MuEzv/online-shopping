@@ -1,5 +1,17 @@
+# IntelliJ IDEA
 .idea/
-ItemService/target/
-*.jar
+*.iml
+
+# Maven
+**/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Logs
 *.log
-*.tmp
+
+# OS files
+.DS_Store
+
+# Others
+*.class
+.env

@@ -79,8 +79,6 @@ services:
 #-----------------------
     ports:
       - "8081:8081"
-    dns:
-      - 8.8.8.8
     networks:
       - microservices-network
 #    environment:
@@ -88,27 +86,32 @@ services:
     depends_on:
       eureka-service:
         condition: service_started
-#  order-service:
-#    build:
-#      context: ./order
-#      dockerfile: Dockerfile
-#    ports:
-#      - "8083:8083"
-#    networks:
-#      - microservices-network
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=dev
 
-#  payment-service:
-#    build:
-#      context: ./payment
-#      dockerfile: Dockerfile
-#    ports:
-#      - "8084:8084"
-#    networks:
-#      - microservices-network
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=dev
+  order-service:
+    build:
+      context: ./OrderService
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    networks:
+      - microservices-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - ASTRA_DB_TOKEN={ASTRA_DB_TOKEN}
+
+
+  payment-service:
+    build:
+      context: ./PaymentService
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    networks:
+      - microservices-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - ASTRA_DB_TOKEN={ASTRA_DB_TOKEN}
+
 
 networks:
   microservices-network:
