@@ -1,4 +1,4 @@
-package com.project.itemservice;
+package com.project.service;
 
 import com.project.payload.*;
 

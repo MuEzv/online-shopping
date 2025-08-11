@@ -21,10 +21,7 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     public OrderServiceImpl(com.project.config.AstraDBConnection connection, ItemServiceClient itemServiceClient) {
         this.database = connection.getDatabase();
-        if (!database.collectionExists("orders")) {
-            // If collection doesn't exist
-            database.createCollection("orders", Order.class);
-        }
+        logger.info("Connected to AstraDB");
         this.orderCollection = database.getCollection("orders", Order.class);
         this.itemServiceClient = itemServiceClient;
     }

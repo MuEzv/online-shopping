@@ -1,10 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.project.service.OrderServiceApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.022 s <<< FAILURE! - in com.project.service.OrderServiceApplicationTests
-contextLoads  Time elapsed: 0.002 s  <<< ERROR!
-java.lang.IllegalStateException: Failed to load ApplicationContext
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'astraDBConnection' defined in file [E:\Study\ChuwaProject\online-shopping\OrderService\target\classes\com\project\config\AstraDBConnection.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.project.config.AstraDBConnection]: Constructor threw exception; nested exception is java.lang.IllegalArgumentException: Invalid DB URL format
-Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.project.config.AstraDBConnection]: Constructor threw exception; nested exception is java.lang.IllegalArgumentException: Invalid DB URL format
-Caused by: java.lang.IllegalArgumentException: Invalid DB URL format
-
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.687 s - in com.project.service.OrderServiceApplicationTests

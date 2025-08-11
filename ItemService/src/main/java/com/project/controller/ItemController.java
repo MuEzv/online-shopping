@@ -1,7 +1,7 @@
 package com.project.controller;
 
 
-import com.project.itemservice.ItemService;
+import com.project.service.ItemService;
 import com.project.payload.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
