@@ -53,6 +53,11 @@ public class AccountService implements AccountServiceImpl {
         return repository.findByEmail(email).map(this::mapToResponse);
     }
 
+    @Override
+    public Optional<Account> getAccountByEmailForLogin(String email) {
+        return repository.findEntityByEmail(email);
+    }
+
     private AccountResponseDTO mapToResponse(Account acc) {
         return new AccountResponseDTO(
                 acc.getEmail(),
@@ -63,9 +68,5 @@ public class AccountService implements AccountServiceImpl {
         );
     }
 
-    public Optional<AccountResponseDTO> login(String email, String password) {
-        return repository.findByEmail(email)
-                .filter(account -> passwordEncoder.matches(password, account.getPassword()))
-                .map(this::mapToResponse);
-    }
+
 }
