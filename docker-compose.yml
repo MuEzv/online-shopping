@@ -1,5 +1,6 @@
 #version: '3.9'
 
+
 services:
   mysql:
     image: mysql:8.0.33
@@ -98,12 +99,15 @@ services:
       - "8083:8083"
     networks:
       - microservices-network
+    volumes:
+      - ./OrderService:/app
     environment:
       - SPRING_PROFILES_ACTIVE=dev
       - ASTRA_DB_TOKEN=${ASTRA_DB_TOKEN}
-      - SPRING_KAFKA_BOOTSTRAP_SERVERS=localhost:9092
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
 
   payment-service:
+    env_file: .env
     build:
       context: ./PaymentService
       dockerfile: Dockerfile
@@ -113,7 +117,7 @@ services:
       - microservices-network
     environment:
       - SPRING_PROFILES_ACTIVE=dev
-      - ASTRA_DB_TOKEN={ASTRA_DB_TOKEN}
+      - ASTRA_DB_TOKEN=${ASTRA_DB_TOKEN}
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
@@ -140,9 +144,7 @@ services:
 
 
 
-
-
-
+#Network configuration
 networks:
   microservices-network:
     driver: bridge

@@ -32,6 +32,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Optional<Order> placeOrder(Order order){
+        if (order.getItems() == null || order.getItems().isEmpty()) {
+            throw new IllegalArgumentException("Order items cannot be null or empty");
+        }
         for(var item : order.getItems()) {
             var itemDetails = itemServiceClient.getItemById(item.getId());
             // check if item exists and has enough quantity
@@ -54,8 +57,13 @@ public class OrderServiceImpl implements OrderService{
         return orderCollection.findById(id);
     }
 
+    @Override
     public Optional<Order> updateOrder(Order order) {
         Filter filter = Filters.eq("orderId", order.getOrderId());
+        if(!checkInventory(order)) {
+            logger.error("Insufficient inventory for order: {}", order.getOrderId());
+            return Optional.empty();
+        }
         Update update = Update.create().set("status", order.getStatus());
 
         UpdateResult result = orderCollection.updateOne(filter, update);
@@ -66,6 +74,31 @@ public class OrderServiceImpl implements OrderService{
         }
     }
 
+    private Boolean checkInventory(Order order){
+        for(var item : order.getItems()) {
+            var itemDetails = itemServiceClient.getItemById(item.getId());
+            // check if item exists and has enough quantity
+            if (itemDetails == null || itemDetails.getAvailableQuantity() < item.getQuantity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public  Optional<Order> updateOrderStatus(String id, String status) {
+        Filter filter = Filters.eq("orderId", id);
+        Update update = Update.create().set("status", status);
+
+        UpdateResult result = orderCollection.updateOne(filter, update);
+        if(result.getMatchedCount() > 0){
+            return orderCollection.findById(id);
+        }else{
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public int deleteOrder(String id) {
         Filter filter = Filters.eq("orderId", id);
         DeleteResult result = orderCollection.deleteOne(filter);
