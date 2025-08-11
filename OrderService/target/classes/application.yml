@@ -3,9 +3,22 @@ spring:
     name: order-service
 
 server:
-  port: 8082
+  port: 8083
 
 eureka:
   client:
     service-url:
       defaultZone: http://eureka-service:8761/eureka
+
+#astra:
+#  token: {ASTRA_DB_TOKEN}
+#  database-id: 543d6d3a-525a-4560-92e4-f973cd735aa6
+#  keyspace: orders
+#  cloud:
+#    secure-connect-bundle: secure-connect-shopping.zip
+# application.yml
+astra:
+  connection:
+    max-per-route: 20
+    max-total: 100
+    timeout: 5000

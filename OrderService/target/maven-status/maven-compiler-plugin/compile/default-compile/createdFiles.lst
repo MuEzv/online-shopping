@@ -1,5 +1,10 @@
-com\project\controller\OrderController.class
-com\project\OrderServiceApplication.class
+com\project\entity\Order.class
 com\project\service\OrderServiceImpl.class
-com\project\config\AstraDBConnection.class
+com\project\client\ItemServiceClient.class
 com\project\service\OrderService.class
+com\project\entity\ItemDTO.class
+com\project\client\AccountServiceClient.class
+com\project\controller\OrderController.class
+com\project\client\PaymentServiceClient.class
+com\project\OrderServiceApplication.class
+com\project\config\AstraDBConnection.class
