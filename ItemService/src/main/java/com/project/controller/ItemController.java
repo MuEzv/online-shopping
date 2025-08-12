@@ -1,8 +1,10 @@
 package com.project.controller;
 
 import com.project.entity.ItemDTO;
+import com.project.feign.AccountClient;
 import com.project.itemservice.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
@@ -12,6 +14,8 @@ import java.util.*;
 public class ItemController {
     @Autowired
     private ItemService itemService;
+    @Autowired
+    private AccountClient accountClient;
 
     @PostMapping("/add")
     public ResponseEntity<ItemDTO> createItem(@RequestBody ItemDTO itemDTO) {
@@ -55,4 +59,8 @@ public class ItemController {
         return ResponseEntity.ok(items);
     }
 
+    @GetMapping("/account-email/{email}")
+    public String getAccountEmail(@PathVariable String email) {
+        return accountClient.getEmail(email);
+    }
 }

@@ -22,13 +22,6 @@ import java.util.Optional;
 public class AccountController {
     @Autowired
     private AccountService service;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @PostMapping("/register")
-    public ResponseEntity<AccountResponseDTO> createAccount(@RequestBody AccountRequestDTO request) {
-        return ResponseEntity.ok(service.createAccount(request));
-    }
 
     @PutMapping("/{email}")
     @PreAuthorize("#email == authentication.name")
@@ -47,17 +40,9 @@ public class AccountController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDTO request) {
-        Optional<Account> userOpt = service.getAccountByEmailForLogin(request.getEmail());
-        System.out.println("user found? " + userOpt.isPresent());
-        if (userOpt.isPresent() && passwordEncoder.matches(request.getPassword(), userOpt.get().getPassword())) {
-            String token = JwtUtil.generateToken(userOpt.get().getEmail());
-            System.out.println("user found? " + userOpt.isPresent());
-            System.out.println("matches? " + (userOpt.isPresent() && passwordEncoder.matches(request.getPassword(), userOpt.get().getPassword())));
-            return ResponseEntity.ok(new JwtResponseDTO(token, "Bearer", 900));
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    @GetMapping("/test/{email}")
+    @PreAuthorize("#email == authentication.name")
+    public String getEmail(@PathVariable String email) {
+        return email;
     }
 }
