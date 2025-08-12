@@ -31,16 +31,6 @@ public class OrderController {
         return ResponseEntity.ok(newOrder);
     }
 
-    @PostMapping("/update/{id}/{status}")
-    public ResponseEntity<Optional<Order>> updateOrderStatus(@PathVariable String id, @PathVariable String status) {
-        logger.info("Updating order status for ID: {}, Status: {}", id, status);
-        Optional<Order> updatedOrder = orderService.updateOrderStatus(id, status);
-        if(updatedOrder.isEmpty()) {
-            logger.error("Failed to update order status for ID: {}", id);
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(updatedOrder);
-    }
 
     @PostMapping("/update")
     public ResponseEntity<Order> updateOrder(@RequestBody Order order) {

@@ -5,6 +5,7 @@ import com.datastax.astra.client.Database;
 import com.datastax.astra.client.model.*;
 import com.project.client.ItemServiceClient;
 import com.project.entity.Order;
+import com.project.entity.OrderStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,14 @@ public class OrderServiceImpl implements OrderService{
         if (order.getItems() == null || order.getItems().isEmpty()) {
             throw new IllegalArgumentException("Order items cannot be null or empty");
         }
+
+        // Idempotency check:
+        Optional<Order> existingOrder = orderCollection.findOne(Filters.eq("orderId", order.getOrderId()));
+        if (existingOrder.isPresent()) {
+            logger.warn("Order with ID: {} already exists. Try again.", order.getOrderId());
+            throw new IllegalArgumentException("Order Id exists: " + order.getOrderId());
+        }
+
         for(var item : order.getItems()) {
             var itemDetails = itemServiceClient.getItemById(item.getId());
             // check if item exists and has enough quantity
@@ -45,6 +54,7 @@ public class OrderServiceImpl implements OrderService{
         }
 
         logger.info("All items are available. Proceeding to insert the order into the database.");
+        order.setStatus(OrderStatus.PROCESSING);
         InsertOneResult result = orderCollection.insertOne(order);
         Optional<Order> insertedOrder = orderCollection.findById(result.getInsertedId());
 
@@ -86,7 +96,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public  Optional<Order> updateOrderStatus(String id, String status) {
+    public  Optional<Order> updateOrderStatus(String id, OrderStatus status) {
         Filter filter = Filters.eq("orderId", id);
         Update update = Update.create().set("status", status);
 
@@ -106,6 +116,17 @@ public class OrderServiceImpl implements OrderService{
         return result.getDeletedCount();
     }
 
+    @Override
+    public Optional<Order>  findOrderById(String orderId) {
+        Filter filter = Filters.eq("orderId", orderId);
+        Optional<Order> order = orderCollection.findOne(filter);
+        if (order.isPresent()) {
+            return order;
+        } else {
+            logger.warn("Order with ID: {} not found.", orderId);
+            return null;
+        }
+    }
 
 
 
