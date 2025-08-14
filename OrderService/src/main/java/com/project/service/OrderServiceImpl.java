@@ -36,13 +36,21 @@ public class OrderServiceImpl implements OrderService{
         if (order.getItems() == null || order.getItems().isEmpty()) {
             throw new IllegalArgumentException("Order items cannot be null or empty");
         }
-
-        // Idempotency check:
-        Optional<Order> existingOrder = findOrderById(order.getOrderId());
-        if (existingOrder.isPresent()) {
-            logger.warn("Order with ID: {} already exists. Try again.", order.getOrderId());
-            throw new IllegalArgumentException("Order Id exists: " + order.getOrderId());
+        Optional<Order> existingOrder = Optional.empty();
+        try {
+            existingOrder = orderCollection.findOne(Filters.eq("orderId", order.getOrderId()));
+        } catch (NullPointerException npe) {
+            logger.warn("AstraDB returned null document for orderId: {}", order.getOrderId());
+            // Treat as not found, continue
+        } catch (Exception e) {
+            logger.error("Error checking for existing order: {}", e.getMessage());
+            throw new RuntimeException("Error checking for existing payment", e);
         }
+        if (existingOrder.isPresent()) {
+            logger.warn("Order with ID: {} already exists.", order.getOrderId());
+            throw new IllegalArgumentException("Order ID exists: " + order.getOrderId());
+        }
+
         logger.info("Complete the idempotency check. Proceeding to check item availability.");
 
         for(var item : order.getItems()) {
