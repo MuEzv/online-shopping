@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService{
         }
 
         // Idempotency check:
-        Optional<Order> existingOrder = orderCollection.findOne(Filters.eq("orderId", order.getOrderId()));
+        Optional<Order> existingOrder = findOrderById(order.getOrderId());
         if (existingOrder.isPresent()) {
             logger.warn("Order with ID: {} already exists. Try again.", order.getOrderId());
             throw new IllegalArgumentException("Order Id exists: " + order.getOrderId());
@@ -132,12 +132,12 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Optional<Order>  findOrderById(String orderId) {
         Filter filter = Filters.eq("orderId", orderId);
-        Optional<Order> order = orderCollection.findOne(filter);
-        if (order.isPresent()) {
-            return order;
+        var it = orderCollection.find(filter, new FindOptions().limit(1)).iterator();
+        if (it.hasNext()) {
+            return Optional.ofNullable(it.next());
         } else {
-            logger.warn("Order with ID: {} not found.", orderId);
-            return null;
+            logger.warn("Order with ID {} not found.", orderId);
+            return Optional.empty();
         }
     }
 
