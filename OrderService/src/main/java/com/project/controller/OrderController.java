@@ -41,8 +41,15 @@ public class OrderController {
             ObjectMapper objectMapper = new ObjectMapper();
             order.setOrderId(UUID.randomUUID().toString());
             String orderJson = objectMapper.writeValueAsString(order);
-            kafkaTemplate.send(TOPIC, order.getOrderId(), orderJson);
-            logger.info("Order sent to Kafka topic: {}", TOPIC);
+
+            // Use KafkaTemplate.executeInTransaction for transactional sending
+            kafkaTemplate.executeInTransaction(operations -> {
+                operations.send(TOPIC, order.getOrderId(), orderJson);
+                logger.info("Order sent to Kafka topic: {}", TOPIC);
+                return true;
+            });
+
+
         } catch (Exception e) {
             logger.error("Failed to serialize and send order: {}", order, e);
             return ResponseEntity.status(500).body("Failed to process the order");
