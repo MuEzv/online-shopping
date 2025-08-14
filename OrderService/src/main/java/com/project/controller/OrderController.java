@@ -1,6 +1,7 @@
 package com.project.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.entity.OrderStatus;
 import com.project.service.OrderService;
 import com.project.entity.Order;
 import org.slf4j.Logger;
@@ -35,6 +36,7 @@ public class OrderController {
     public ResponseEntity<String> placeOrder(@RequestBody Order order) {
         logger.info("Received order: {}", order);
         order.setCreatedAt(new Date());
+        order.setStatus(OrderStatus.CREATED);
 
         // Send order to Kafka topic
         try {

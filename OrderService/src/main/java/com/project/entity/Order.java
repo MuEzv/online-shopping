@@ -15,7 +15,6 @@ public class Order {
     private String orderId;
     private String userId;
 
-    @Enumerated(EnumType.ORDINAL)
     private OrderStatus status;
 
     private List<ItemDTO> items;

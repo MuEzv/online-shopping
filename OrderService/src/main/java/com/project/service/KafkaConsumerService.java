@@ -35,11 +35,14 @@ public class KafkaConsumerService {
 
             // Ensure idempotent processing based on orderId
             Optional<Order> existingOrder = orderService.findOrderById(order.getOrderId());
-            if (existingOrder.isPresent() && existingOrder.get().getStatus() == order.getStatus()) {
-                // Check current status to avoid duplicate processing
+            if (existingOrder.isPresent()) {
+                if (existingOrder.get().getStatus() != null && existingOrder.get().getStatus() == order.getStatus()) {
                     System.out.println("Duplicate message detected, skipping processing for Order ID: " + order.getOrderId());
                     ack.acknowledge();
-                    return; // Skip processing if the status is already updated
+                    return;
+                }
+            } else {
+                System.out.println("No existing order found for Order ID: " + order.getOrderId());
             }
             logger.info("Processing order by Order status");
             switch (order.getStatus()) {
