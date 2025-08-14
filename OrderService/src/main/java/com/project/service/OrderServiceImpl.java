@@ -132,12 +132,12 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Optional<Order>  findOrderById(String orderId) {
         Filter filter = Filters.eq("orderId", orderId);
-        Optional<Order> order = orderCollection.findOne(filter);
-        if (order.isPresent()) {
-            return order;
-        } else {
+        var it = orderCollection.find(filter, new FindOptions().limit(1)).iterator();
+        if(it.hasNext()){
+            return Optional.ofNullable(it.next());
+        }else{
             logger.warn("Order with ID: {} not found.", orderId);
-            return null;
+            return Optional.empty();
         }
     }
 

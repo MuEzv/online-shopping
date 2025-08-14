@@ -41,7 +41,7 @@ public class KafkaConsumerService {
                     ack.acknowledge();
                     return; // Skip processing if the status is already updated
             }
-
+            logger.info("Processing order by Order status");
             switch (order.getStatus()) {
                 case CREATED:
                     logger.info("Processing order creation for Order ID: {}", order.getOrderId());
