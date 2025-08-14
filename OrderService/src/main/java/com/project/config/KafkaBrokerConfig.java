@@ -15,6 +15,7 @@ public class KafkaBrokerConfig {
     public KafkaAdmin kafkaAdmin(){
         Map<String, Object> configs = new HashMap<>();
         configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+//        configs.put(AdminClientConfig.REQUEST_TIMEOUT_MS_CONFIG, "30000");
         return new KafkaAdmin(configs);
     }
 

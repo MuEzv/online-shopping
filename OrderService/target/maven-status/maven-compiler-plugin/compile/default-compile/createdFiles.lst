@@ -10,6 +10,7 @@ com\project\client\ItemServiceClient.class
 com\project\service\OrderService.class
 com\project\entity\ItemDTO.class
 com\project\client\AccountServiceClient.class
+com\project\config\TransactionConfig.class
 com\project\controller\OrderController.class
 com\project\client\PaymentServiceClient.class
 com\project\service\KafkaProducerService.class

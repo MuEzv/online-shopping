@@ -3,6 +3,8 @@ package com.project.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.entity.Order;
 import com.project.entity.OrderStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
@@ -16,7 +18,7 @@ import java.util.Optional;
 public class KafkaConsumerService {
     private final ObjectMapper objectMapper;
     private final OrderService orderService;
-
+    private final Logger logger = LoggerFactory.getLogger(KafkaConsumerService.class);
     @Autowired
     public KafkaConsumerService(ObjectMapper objectMapper, OrderService orderService) {
         this.objectMapper = objectMapper;
@@ -33,16 +35,16 @@ public class KafkaConsumerService {
 
             // Ensure idempotent processing based on orderId
             Optional<Order> existingOrder = orderService.findOrderById(order.getOrderId());
-            if (existingOrder.isPresent()) {
+            if (existingOrder.isPresent() && existingOrder.get().getStatus() == order.getStatus()) {
                 // Check current status to avoid duplicate processing
-                if (existingOrder.get().getStatus() == order.getStatus()) {
                     System.out.println("Duplicate message detected, skipping processing for Order ID: " + order.getOrderId());
+                    ack.acknowledge();
                     return; // Skip processing if the status is already updated
-                }
             }
 
             switch (order.getStatus()) {
                 case CREATED:
+                    logger.info("Processing order creation for Order ID: {}", order.getOrderId());
                     var placedOrder = orderService.placeOrder(order);
                     placedOrder.ifPresentOrElse(
                             o -> System.out.println("Order placed successfully: " + o),
@@ -51,6 +53,7 @@ public class KafkaConsumerService {
                     break;
 
                 case UPDATED:
+                    logger.info("Processing order update for Order ID: {}", order.getOrderId());
                     var updatedOrder = orderService.updateOrder(order);
                     updatedOrder.ifPresentOrElse(
                             o -> System.out.println("Order updated successfully: " + o),
@@ -59,11 +62,12 @@ public class KafkaConsumerService {
                     break;
 
                 case CANCELLED:
+                    logger.info("Processing order cancellation for Order ID: {}", order.getOrderId());
                     order.setStatus(OrderStatus.CANCELLED);
                     var cancelledOrder = orderService.updateOrderStatus(order.getOrderId(), OrderStatus.CANCELLED);
                     cancelledOrder.ifPresentOrElse(
                             o -> System.out.println("Order cancelled successfully: " + o),
-                            () -> System.err.println("Failed to cancel order: " + order)
+                            () -> System.err.println("Failed to cancel order:3" + order)
                     );
                     break;
 

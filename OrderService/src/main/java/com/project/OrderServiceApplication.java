@@ -9,12 +9,14 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication(exclude = {
         CassandraDataAutoConfiguration.class,
         org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfiguration.class
 })
 @EnableFeignClients
+@EnableTransactionManagement
 public class OrderServiceApplication {
 
     public static void main(String[] args) {

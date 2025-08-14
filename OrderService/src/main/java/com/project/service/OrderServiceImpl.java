@@ -43,6 +43,7 @@ public class OrderServiceImpl implements OrderService{
             logger.warn("Order with ID: {} already exists. Try again.", order.getOrderId());
             throw new IllegalArgumentException("Order Id exists: " + order.getOrderId());
         }
+        logger.info("Complete the idempotency check. Proceeding to check item availability.");
 
         for(var item : order.getItems()) {
             var itemDetails = itemServiceClient.getItemById(item.getId());
@@ -57,6 +58,10 @@ public class OrderServiceImpl implements OrderService{
         order.setStatus(OrderStatus.PROCESSING);
         InsertOneResult result = orderCollection.insertOne(order);
         Optional<Order> insertedOrder = orderCollection.findById(result.getInsertedId());
+        if (insertedOrder.isEmpty()) {
+            logger.error("Inserted order not found in database. ID: {}", result.getInsertedId());
+            return Optional.empty();
+        }
 
         //return "Order placed with ID: " + order.getId() + ", Result: " + result.getInsertedId();
         logger.info("Order placed with ID: {}, Result: {}", order.getOrderId(), result.getInsertedId());
@@ -64,7 +69,15 @@ public class OrderServiceImpl implements OrderService{
     }
 
     public Optional<Order> getOrderById(String id) {
-        return orderCollection.findById(id);
+        Filter filter = Filters.eq("orderId", id);
+        Optional<Order> order = orderCollection.findOne(filter);
+        if (order.isPresent()) {
+            logger.info("Order found: {}", order.get());
+            return order;
+        } else {
+            logger.warn("Order with ID: {} not found.", id);
+            return Optional.empty(); // Ensure null is not returned
+        }
     }
 
     @Override
