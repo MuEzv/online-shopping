@@ -31,6 +31,8 @@ services:
       - microservices-network
     environment:
       - SPRING_PROFILES_ACTIVE=dev
+    container_name: eureka-service
+
 
   gateway-service:
     build:

@@ -7,6 +7,7 @@ import com.project.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
@@ -19,6 +20,7 @@ public class ItemController {
     private AccountClient accountClient;
 
     @PostMapping("/add")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<ItemDTO> createItem(@RequestBody ItemRequestDTO itemDTO) {
         ItemDTO createdItem = itemService.createItem(itemDTO);
         return ResponseEntity.ok(createdItem);
@@ -37,6 +39,7 @@ public class ItemController {
     }
 
     @GetMapping("/getAll")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<List<ItemDTO>> getAllItems() {
         List<ItemDTO> items = itemService.getAllItems();
         return ResponseEntity.ok(items);
