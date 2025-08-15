@@ -24,7 +24,6 @@ public class AccountController {
     private AccountService service;
 
     @PutMapping("/{email}")
-    @PreAuthorize("@ownershipChecker.isOwnerEmail(#email, authentication.name) or hasRole('ADMIN')")
     public ResponseEntity<AccountResponseDTO> updateAccount(
             @PathVariable String email,
             @RequestBody AccountRequestDTO request) {
@@ -34,7 +33,6 @@ public class AccountController {
     }
 
     @GetMapping("/{email}")
-    @PreAuthorize("@ownershipChecker.isOwnerEmail(#email, authentication.name)")
     public ResponseEntity<AccountResponseDTO> getAccount(@PathVariable String email) {
         return service.getAccountByEmail(email)
                 .map(ResponseEntity::ok)

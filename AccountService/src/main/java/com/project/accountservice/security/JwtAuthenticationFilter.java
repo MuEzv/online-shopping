@@ -24,6 +24,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
         System.out.println("✅ JwtAuthenticationFilter invoked");
+        SecurityContextHolder.clearContext();
+
         String header = request.getHeader("Authorization");
         System.out.println("🧾 Authorization header: " + header);
 

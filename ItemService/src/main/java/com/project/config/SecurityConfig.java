@@ -16,6 +16,7 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .antMatchers("/items/Id/**", "/items/update/**").permitAll()
                 .antMatchers("/items/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
