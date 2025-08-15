@@ -1,38 +1,61 @@
 package com.project.util;
+import io.jsonwebtoken.*;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static io.jsonwebtoken.Jwts.parser;
 
 public class JwtUtil {
-//    private static final String SECRET_KEY = System.getenv("JWT_SECRET");
-    private static final String SECRET_KEY = "M+v1kOKhvyF6gk7lYJ4jLr9C8wQtOzhW8+EJ6pqnv8Y=";
 
-    public static String generateToken(String username) {
+    private static final String SECRET_KEY = "M+v1kOKhvyF6gk7lYJ4jLr9C8wQtOzhW8+EJ6pqnv8Y="; // Base64 字符串
+
+//    private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET_KEY_STR.getBytes(StandardCharsets.UTF_8));
+
+    public static String generateTokenSubjectIsAccountId(String accountId, String email, String[] roles) {
+        Date now = new Date();
+        Date exp = new Date(now.getTime() + 3600_000); // 1h
+
         return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1 day
+                .setSubject(accountId)                 // ★ sub = accountId
+                .claim("email", email)                 // 可选，给下游看
+                .claim("roles", Arrays.stream(roles).map(r -> "ROLE_" + r).toArray())
+//                .claim("roles", roles)                 // 可选，做 RBAC
+                .setIssuedAt(now)
+                .setExpiration(exp)
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
 
-    public static String extractUsername(String token) {
-        return Jwts.parser().setSigningKey(SECRET_KEY)
+
+    public static String extractSubject(String token) {
+        return parser().setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token).getBody().getSubject();
     }
 
-    public static boolean validateToken(String token, String username) {
+    public static String extractEmail(String token) {
+        Object v = parser().setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token).getBody().get("email");
+        return v == null ? null : v.toString();
+    }
+
+    public static List<String> extractRoles(String token) {
+        Object raw = parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().get("roles");
+        if (raw instanceof List<?>) {
+            return ((List<?>) raw).stream().map(String::valueOf).collect(Collectors.toList());
+        }
+        return List.of();
+    }
+
+    public static boolean validateToken(String token, String expectedSubject) {
         try {
-            Claims claims = Jwts.parser().setSigningKey(SECRET_KEY)
-                    .parseClaimsJws(token).getBody();
-            String tokenUsername = claims.getSubject();
-            Date expiration = claims.getExpiration();
-            return (tokenUsername.equals(username) && expiration.after(new Date()));
-        } catch (JwtException | IllegalArgumentException e) {
+            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+            System.out.println("✅ Token is valid");
+            return true;
+        } catch (Exception e) {
+            System.out.println("❌ Token validation failed: " + e.getMessage());
             return false;
         }
     }
