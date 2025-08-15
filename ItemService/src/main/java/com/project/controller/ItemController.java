@@ -1,7 +1,8 @@
 package com.project.controller;
 
-import com.project.entity.ItemDTO;
-import com.project.itemservice.ItemService;
+
+import com.project.service.ItemService;
+import com.project.payload.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +15,13 @@ public class ItemController {
     private ItemService itemService;
 
     @PostMapping("/add")
-    public ResponseEntity<ItemDTO> createItem(@RequestBody ItemDTO itemDTO) {
+    public ResponseEntity<ItemDTO> createItem(@RequestBody ItemRequestDTO itemDTO) {
         ItemDTO createdItem = itemService.createItem(itemDTO);
         return ResponseEntity.ok(createdItem);
     }
 
     @PostMapping("/update")
-    public ResponseEntity<ItemDTO> updateItem(@RequestBody ItemDTO itemDTO) {
+    public ResponseEntity<ItemDTO> updateItem(@RequestBody ItemRequestDTO itemDTO) {
         ItemDTO updatedItem = itemService.updateItem(itemDTO.getId(), itemDTO);
         return ResponseEntity.ok(updatedItem);
     }

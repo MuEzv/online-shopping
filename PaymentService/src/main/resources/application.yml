@@ -2,9 +2,17 @@ spring:
   application:
     name: payment-service
   server:
-    port: 8083
+    port: 8084
 
 eureka:
   client:
     service-url:
       defaultZone: http://eureka-service:8761/eureka
+
+
+logging:
+  level:
+    "com.datastax.astra": TRACE  # Quote package name with colon
+    org.springframework.web: DEBUG
+    com.datastax.oss.driver: INFO
+
