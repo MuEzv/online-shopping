@@ -3,13 +3,18 @@ package com.project.service;
 import com.datastax.astra.client.Collection;
 import com.datastax.astra.client.Database;
 import com.datastax.astra.client.model.*;
+import com.project.client.AccountServiceClient;
 import com.project.client.ItemServiceClient;
-import com.project.entity.Order;
-import com.project.entity.OrderStatus;
+import com.project.client.PaymentServiceClient;
+import com.project.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 import java.util.Optional;
 
@@ -17,14 +22,21 @@ import java.util.Optional;
 public class OrderServiceImpl implements OrderService{
     private final Database database;
     private final ItemServiceClient itemServiceClient;
+    private final PaymentServiceClient paymentServiceClient;
+    private final AccountServiceClient accountServiceClient;
     private final Collection<Order> orderCollection;
+    private final Collection<Payment> paymentCollection;
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
     @Autowired
-    public OrderServiceImpl(com.project.config.AstraDBConnection connection, ItemServiceClient itemServiceClient) {
+    public OrderServiceImpl(com.project.config.AstraDBConnection connection, ItemServiceClient itemServiceClient,
+                            PaymentServiceClient paymentServiceClient, AccountServiceClient accountServiceClient) {
         this.database = connection.getDatabase();
         logger.info("Connected to AstraDB");
         this.orderCollection = database.getCollection("orders", Order.class);
+        this.paymentCollection = database.getCollection("payments", Payment.class);
         this.itemServiceClient = itemServiceClient;
+        this.paymentServiceClient = paymentServiceClient;
+        this.accountServiceClient = accountServiceClient;
     }
 
     public void listCollections() {
@@ -95,7 +107,14 @@ public class OrderServiceImpl implements OrderService{
             logger.error("Insufficient inventory for order: {}", order.getOrderId());
             return Optional.empty();
         }
-        Update update = Update.create().set("status", order.getStatus());
+        Update update = Update.create()
+                .set("orderId", order.getOrderId())
+                .set("status", order.getStatus())
+                .set("totalPrice", order.getTotalPrice())
+                .set("userId", order.getUserId())
+                .set("items", order.getItems())
+                .set("createdAt", order.getCreatedAt())
+                .set("updatedAt", order.getUpdatedAt());
 
         UpdateResult result = orderCollection.updateOne(filter, update);
         if(result.getMatchedCount() > 0){
@@ -151,6 +170,83 @@ public class OrderServiceImpl implements OrderService{
         }
     }
 
+    Boolean authorizeUser(String userId) {
+        // Implement user authorization logic here
+        // For now, we assume all users are authorized
+        return true;
+    }
+
+    private Payment constructPayment(Order order){
+        Payment payment = new Payment();
+        String userId = order.getUserId();
+        AccountRequestDTO user = accountServiceClient.getAccount(userId);
+        payment.setUserId(userId);
+        payment.setOrderId(order.getOrderId());
+        payment.setAmount(order.getTotalPrice());
+        payment.setPaymentMethod(user.getPaymentMethod());
+        payment.setStatus(PaymentStatus.PENDING);
+        payment.setCreatedAt(Instant.now());
+        payment.setUpdatedAt(Instant.now());
+
+        return payment;
+    }
+
+    @Override
+    public Optional<Order> processPayment(Payment payment){
+        if (payment == null || payment.getOrderId() == null) {
+            logger.error("Invalid payment details provided.");
+            return Optional.empty();
+        }
+
+        // Check if the order exists
+        Optional<Order> order = findOrderById(payment.getOrderId());
+        if (order.isEmpty()) {
+            logger.error("Order with ID: {} not found for payment processing.", payment.getOrderId());
+            return Optional.empty();
+        }
+
+        // Check if the order is in PROCESSING state (ready for payment)
+        if(order.get().getStatus() != OrderStatus.PROCESSING) {
+            logger.error("Order with ID: {} is not in PROCESSING state, current status: {}", payment.getOrderId(), order.get().getStatus());
+            return Optional.empty();
+        }
+
+        // Get payment processing message
+        String msg = paymentServiceClient.submitPayment(payment);
+        if(msg == null || msg.isEmpty()) {
+            logger.error("Failed to process payment for Order ID: {}", payment.getOrderId());
+            return Optional.empty();
+        }
+        logger.info(msg);
+        // Update the order status to COMPLETED after successful payment
+        order.get().setStatus(OrderStatus.COMPLETED);
+
+        return order;
+    }
+
+    @Override
+    public Optional<Order> completeOrder(String orderId, String paymentId){
+        if(orderId == null || orderId.isEmpty() || paymentId == null || paymentId.isEmpty()) {
+            logger.error("Order ID or Payment ID cannot be null or empty.");
+            return Optional.empty();
+        }
+
+        Optional<Order> currentOrder = findOrderById(orderId);
+        if (currentOrder.isEmpty()) {
+            logger.error("Order with ID: {} not found.", orderId);
+            return Optional.empty();
+        }
+
+        PaymentStatus paymentStatus = paymentServiceClient.getPaymentStatus(paymentId);
+        if(paymentStatus != PaymentStatus.COMPLETED){
+            logger.error("Payment with ID: {} is not completed, current status: {}", paymentId, paymentStatus);
+            return Optional.empty();
+        }
+
+        currentOrder.get().setStatus(OrderStatus.COMPLETED);
+        return updateOrder(currentOrder.get());
+
+    }
 
 
 

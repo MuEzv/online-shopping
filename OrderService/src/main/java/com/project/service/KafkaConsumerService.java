@@ -3,6 +3,7 @@ package com.project.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.entity.Order;
 import com.project.entity.OrderStatus;
+import com.project.entity.Payment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class KafkaConsumerService {
     }
 
     @KafkaListener(topics = "order-topic", groupId = "order-service-group")
-    public void consumeMessage(String message, @Header(KafkaHeaders.ACKNOWLEDGMENT)Acknowledgment ack) {
+    public void consumeOrderMessage(String message, @Header(KafkaHeaders.ACKNOWLEDGMENT)Acknowledgment ack) {
         // Process the incoming message
         System.out.println("Received message: " + message);
         try{
@@ -84,5 +85,34 @@ public class KafkaConsumerService {
             System.err.println("Error processing message: " + e.getMessage());
         }
 
+    }
+
+    @KafkaListener(topics = "payment-topic", groupId = "payment-service-group")
+    public void consumePaymentMessage(String message, @Header(KafkaHeaders.ACKNOWLEDGMENT) Acknowledgment ack) {
+        // Process the incoming payment message
+        System.out.println("Received payment message: " + message);
+        try {
+            // Deserialize the payment message if needed
+            // it's a JSON string, use ObjectMapper to convert it to a Payment object
+             Payment payment = objectMapper.readValue(message, Payment.class);
+            System.out.println("Processing payment message: " + message);
+
+            switch(payment.getStatus()){
+                case FAILED:
+                    orderService.processPayment(payment);
+                    break;
+                case COMPLETED:
+                    Optional<Order> curOrder = orderService.completeOrder(payment.getOrderId(), payment.getPaymentId());
+                    break;
+
+                default:
+                    System.err.println("Payment waiting for complete " + payment.getPaymentId());
+                    break;
+            }
+
+            ack.acknowledge(); // Acknowledge the message after processing
+        } catch (Exception e) {
+            System.err.println("Error processing payment message: " + e.getMessage());
+        }
     }
 }
