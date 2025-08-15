@@ -1,11 +1,13 @@
 package com.project.accountservice.util;
 
 import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Value;
 //import io.jsonwebtoken.security.Keys;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,10 +23,12 @@ public class JwtUtil {
     public static String generateTokenSubjectIsAccountId(String accountId, String email, String[] roles) {
         Date now = new Date();
         Date exp = new Date(now.getTime() + 3600_000); // 1h
+
         return Jwts.builder()
                 .setSubject(accountId)                 // ★ sub = accountId
                 .claim("email", email)                 // 可选，给下游看
-                .claim("roles", roles)                 // 可选，做 RBAC
+                .claim("roles", Arrays.stream(roles).map(r -> "ROLE_" + r).toArray())
+//                .claim("roles", roles)                 // 可选，做 RBAC
                 .setIssuedAt(now)
                 .setExpiration(exp)
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)

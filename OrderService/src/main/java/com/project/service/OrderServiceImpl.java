@@ -200,8 +200,8 @@ public class OrderServiceImpl implements OrderService{
         String userId = order.getUserId();
 
         // COMMENT ACCOUNT CALL
-//        AccountRequestDTO user = accountServiceClient.getAccount(userId);
-//        payment.setPaymentMethod(user.getPaymentMethod());
+        AccountRequestDTO user = accountServiceClient.getAccount(userId);
+        payment.setPaymentMethod(user.getPaymentMethod());
 
         payment.setPaymentMethod("Default");
         payment.setUserId(userId);

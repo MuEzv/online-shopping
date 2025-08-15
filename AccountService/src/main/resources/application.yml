@@ -26,9 +26,8 @@ eureka:
 
 logging:
   level:
-    com:
-      project:
-        accountservice:
-          security=INFO:
+    com.project.accountservice: DEBUG
+    org.springframework.security: DEBUG
+
 server:
   port: 8082

@@ -48,8 +48,8 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/account/auth/login", "/account/auth/register").permitAll()
-                .antMatchers("/account/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/orders/**", "/payments/**", "/items/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/account/**", "/items/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/orders/**", "/payments/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
