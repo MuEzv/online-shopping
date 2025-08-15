@@ -61,6 +61,8 @@ services:
         condition: service_started
     environment:
       - SPRING_PROFILES_ACTIVE=dev
+    env_file:
+      - .env
 
 
   item-service:
