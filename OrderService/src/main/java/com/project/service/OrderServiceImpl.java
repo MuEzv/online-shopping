@@ -14,11 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Date;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -53,7 +49,10 @@ public class OrderServiceImpl implements OrderService{
         }
 
         // Check if the user is authorized
-        authorizeUser(order.getUserId());
+        if(!authorizeUser(order.getUserId())){
+            logger.error("User with ID: {} is not authorized to place an order.", order.getUserId());
+            throw new SecurityException("User is not authorized to place an order");
+        };
 
         //Idempotency Check: if the order request exists
         Optional<Order> existingOrder = Optional.empty();
@@ -73,14 +72,19 @@ public class OrderServiceImpl implements OrderService{
         logger.info("Complete the idempotency check. Proceeding to check item availability.");
 
         // check inventory for each item in the order
-        for(var item : order.getItems()) {
-            var itemDetails = itemServiceClient.getItemById(item.getId());
-            // check if item exists and has enough quantity
-            if (itemDetails == null || itemDetails.getAvailableQuantity() < item.getQuantity()) {
-                logger.error("Item not available or insufficient quantity: {}", item.getId());
-                throw new RuntimeException("Item not available: " + item.getId());
-            }
+//        for(var item : order.getItems()) {
+//            var itemDetails = itemServiceClient.getItemById(item.getId());
+//            // check if item exists and has enough quantity
+//            if (itemDetails == null || itemDetails.getAvailableQuantity() < item.getQuantity()) {
+//                logger.error("Item not available or insufficient quantity: {}", item.getId());
+//                throw new RuntimeException("Item not available: " + item.getId());
+//            }
+//        }
+
+        if(!checkInventory(order)){
+            logger.error("Insufficient inventory for order: {}", order.getOrderId());
         }
+
         logger.info("All items are available. Proceeding to insert the order into the database.");
 
         // Set order status and save to DB
@@ -104,10 +108,19 @@ public class OrderServiceImpl implements OrderService{
 
     public Optional<Order> getOrderById(String id) {
         Filter filter = Filters.eq("orderId", id);
-        Optional<Order> order = orderCollection.findOne(filter);
-        if (order.isPresent()) {
-            logger.info("Order found: {}", order.get());
-            return order;
+        Optional<Order> existingOrder = Optional.empty();
+        try {
+            existingOrder = orderCollection.findOne(Filters.eq("orderId", id));
+        } catch (NullPointerException npe) {
+            logger.warn("AstraDB returned null document for orderId: {}", id);
+            // Treat as not found, continue
+        } catch (Exception e) {
+            logger.error("Error checking for existing order: {}", e.getMessage());
+            throw new RuntimeException("Error checking for existing payment", e);
+        }
+        if (existingOrder.isPresent()) {
+            logger.info("Order with ID: {} found in database.", id);
+            return existingOrder;
         } else {
             logger.warn("Order with ID: {} not found.", id);
             return Optional.empty(); // Ensure null is not returned
@@ -139,6 +152,35 @@ public class OrderServiceImpl implements OrderService{
         }else{
             return Optional.empty();
         }
+    }
+
+    @Override
+    public Optional<Order> cancelOrder(String id){
+        Filter filter = Filters.eq("orderId", id);
+        Update update = Update.create()
+                .set("status", OrderStatus.CANCELLED);
+
+        UpdateResult result = orderCollection.updateOne(filter, update);
+        if(result.getMatchedCount() > 0){
+            // after update complete, attempt to process payment
+            logger.info("Order with ID: {} updated to CANCELLED successfully.", id);
+            return getOrderById(id);
+        }else{
+            return Optional.empty();
+        }
+    }
+
+
+    @Override
+    public Optional<List<Order>> getAllOrders(){
+        // Fetch all orders using find() method
+        FindIterable<Order> iterable = orderCollection.find();
+
+        // Convert FindIterable to List using streams
+        List<Order> orders = new ArrayList<>();
+        iterable.iterator().forEachRemaining(orders::add);
+
+        return Optional.of(orders);
     }
 
     private Boolean checkInventory(Order order){

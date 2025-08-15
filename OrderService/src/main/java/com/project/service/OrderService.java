@@ -6,6 +6,7 @@ import com.project.entity.Payment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface OrderService {
@@ -18,4 +19,6 @@ public interface OrderService {
     public Optional<Order> completeOrder(String orderId, String paymentId);
     public Optional<Payment> processPayment(Payment payment);
     public void dealWithPayment(Order order);
+    public Optional<Order> cancelOrder(String id);
+    public Optional<List<Order>> getAllOrders();
 }
