@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/payments/")
+@RequestMapping("/payments")
 public class PaymentController {
 
     @Autowired

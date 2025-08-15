@@ -16,5 +16,6 @@ public interface OrderService {
     public int deleteOrder(String id);
     public Optional<Order>  findOrderById(String orderId);
     public Optional<Order> completeOrder(String orderId, String paymentId);
-    public Optional<Order> processPayment(Payment payment);
+    public Optional<Payment> processPayment(Payment payment);
+    public void dealWithPayment(Order order);
 }

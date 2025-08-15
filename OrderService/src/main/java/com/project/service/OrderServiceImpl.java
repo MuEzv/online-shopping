@@ -16,7 +16,9 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -45,9 +47,15 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Optional<Order> placeOrder(Order order){
+        // Check if there are items in the order
         if (order.getItems() == null || order.getItems().isEmpty()) {
             throw new IllegalArgumentException("Order items cannot be null or empty");
         }
+
+        // Check if the user is authorized
+        authorizeUser(order.getUserId());
+
+        //Idempotency Check: if the order request exists
         Optional<Order> existingOrder = Optional.empty();
         try {
             existingOrder = orderCollection.findOne(Filters.eq("orderId", order.getOrderId()));
@@ -62,9 +70,9 @@ public class OrderServiceImpl implements OrderService{
             logger.warn("Order with ID: {} already exists.", order.getOrderId());
             throw new IllegalArgumentException("Order ID exists: " + order.getOrderId());
         }
-
         logger.info("Complete the idempotency check. Proceeding to check item availability.");
 
+        // check inventory for each item in the order
         for(var item : order.getItems()) {
             var itemDetails = itemServiceClient.getItemById(item.getId());
             // check if item exists and has enough quantity
@@ -73,15 +81,21 @@ public class OrderServiceImpl implements OrderService{
                 throw new RuntimeException("Item not available: " + item.getId());
             }
         }
-
         logger.info("All items are available. Proceeding to insert the order into the database.");
+
+        // Set order status and save to DB
         order.setStatus(OrderStatus.PROCESSING);
+        order.setCreatedAt(new Date());
+        order.setUpdatedAt(new Date());
         InsertOneResult result = orderCollection.insertOne(order);
         Optional<Order> insertedOrder = orderCollection.findById(result.getInsertedId());
         if (insertedOrder.isEmpty()) {
             logger.error("Inserted order not found in database. ID: {}", result.getInsertedId());
             return Optional.empty();
         }
+
+        // After placing the order, process the payment
+        dealWithPayment(insertedOrder.get());
 
         //return "Order placed with ID: " + order.getId() + ", Result: " + result.getInsertedId();
         logger.info("Order placed with ID: {}, Result: {}", order.getOrderId(), result.getInsertedId());
@@ -109,7 +123,7 @@ public class OrderServiceImpl implements OrderService{
         }
         Update update = Update.create()
                 .set("orderId", order.getOrderId())
-                .set("status", order.getStatus())
+                .set("status", order.getStatus() == OrderStatus.COMPLETED ? OrderStatus.COMPLETED : OrderStatus.PROCESSING)
                 .set("totalPrice", order.getTotalPrice())
                 .set("userId", order.getUserId())
                 .set("items", order.getItems())
@@ -118,6 +132,9 @@ public class OrderServiceImpl implements OrderService{
 
         UpdateResult result = orderCollection.updateOne(filter, update);
         if(result.getMatchedCount() > 0){
+            // after update complete, attempt to process payment
+            logger.info("Order with ID: {} updated successfully.", order.getOrderId());
+            if(order.getStatus() == OrderStatus.PROCESSING)dealWithPayment(order);
             return Optional.of(order);
         }else{
             return Optional.empty();
@@ -177,22 +194,40 @@ public class OrderServiceImpl implements OrderService{
     }
 
     private Payment constructPayment(Order order){
+        logger.info("Constructing payment for Order ID: {}", order.getOrderId());
         Payment payment = new Payment();
+        payment.setPaymentId(UUID.randomUUID().toString());
         String userId = order.getUserId();
-        AccountRequestDTO user = accountServiceClient.getAccount(userId);
+
+        // COMMENT ACCOUNT CALL
+//        AccountRequestDTO user = accountServiceClient.getAccount(userId);
+//        payment.setPaymentMethod(user.getPaymentMethod());
+
+        payment.setPaymentMethod("Default");
         payment.setUserId(userId);
         payment.setOrderId(order.getOrderId());
         payment.setAmount(order.getTotalPrice());
-        payment.setPaymentMethod(user.getPaymentMethod());
         payment.setStatus(PaymentStatus.PENDING);
         payment.setCreatedAt(Instant.now());
         payment.setUpdatedAt(Instant.now());
-
         return payment;
     }
 
     @Override
-    public Optional<Order> processPayment(Payment payment){
+    public void dealWithPayment(Order order){
+        logger.info("Deal with payment for Order ID: {}", order.getOrderId());
+        Payment payment = constructPayment(order);
+        Optional<Payment> processedPayment = processPayment(payment);
+        if(processedPayment.isPresent()){
+            completeOrder(order.getOrderId(), processedPayment.get().getPaymentId());
+        }else{
+            logger.error("Payment processing failed for Order ID: {}", order.getOrderId());
+        }
+    }
+
+    // After having payment info, call payment service to process the payment
+    @Override
+    public Optional<Payment> processPayment(Payment payment){
         if (payment == null || payment.getOrderId() == null) {
             logger.error("Invalid payment details provided.");
             return Optional.empty();
@@ -217,33 +252,59 @@ public class OrderServiceImpl implements OrderService{
             logger.error("Failed to process payment for Order ID: {}", payment.getOrderId());
             return Optional.empty();
         }
-        logger.info(msg);
-        // Update the order status to COMPLETED after successful payment
-        order.get().setStatus(OrderStatus.COMPLETED);
 
-        return order;
+        logger.info(msg);
+        logger.info("Payment completed for Order ID: {}", payment.getOrderId());
+        // Update the payment status to COMPLETED after successful payment
+        payment.setStatus(paymentServiceClient.getPaymentStatus(payment.getPaymentId()));
+        if(payment.getStatus() != PaymentStatus.COMPLETED) {
+            logger.error("Payment for Order ID: {} is not completed, current status: {}", payment.getOrderId(), payment.getStatus());
+            return Optional.empty();
+        }
+        return Optional.of(payment);
     }
 
+
+    //Aready have orderId and paymentId, check to complete the order
     @Override
     public Optional<Order> completeOrder(String orderId, String paymentId){
+        // Validate orderId and paymentId
         if(orderId == null || orderId.isEmpty() || paymentId == null || paymentId.isEmpty()) {
             logger.error("Order ID or Payment ID cannot be null or empty.");
             return Optional.empty();
         }
 
+        // Check if the order exists
         Optional<Order> currentOrder = findOrderById(orderId);
         if (currentOrder.isEmpty()) {
             logger.error("Order with ID: {} not found.", orderId);
             return Optional.empty();
         }
 
+        // Check if the payment exists and is completed
         PaymentStatus paymentStatus = paymentServiceClient.getPaymentStatus(paymentId);
         if(paymentStatus != PaymentStatus.COMPLETED){
             logger.error("Payment with ID: {} is not completed, current status: {}", paymentId, paymentStatus);
             return Optional.empty();
         }
 
+        //Check if the item inventory is sufficient
+        if(!checkInventory(currentOrder.get())) {
+            logger.error("Insufficient inventory for order: {}", orderId);
+            return Optional.empty();
+        }
+
+        // Deduct item quantities from inventory
+        for(ItemDTO item : currentOrder.get().getItems()) {
+            ItemDTO itemInStock = itemServiceClient.getItemById(item.getId());
+            itemInStock.setQuantity(itemInStock.getQuantity() - item.getQuantity());
+            itemInStock.setAvailableQuantity(itemInStock.getAvailableQuantity() - item.getQuantity());
+            itemServiceClient.updateItem(itemInStock);
+        }
+
+        // Update the order status to COMPLETED
         currentOrder.get().setStatus(OrderStatus.COMPLETED);
+        logger.info("Completing order with ID: {}", orderId);
         return updateOrder(currentOrder.get());
 
     }

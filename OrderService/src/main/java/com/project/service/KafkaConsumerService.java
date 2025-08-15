@@ -45,6 +45,8 @@ public class KafkaConsumerService {
             } else {
                 System.out.println("No existing order found for Order ID: " + order.getOrderId());
             }
+
+
             logger.info("Processing order by Order status");
             switch (order.getStatus()) {
                 case CREATED:
@@ -99,10 +101,23 @@ public class KafkaConsumerService {
 
             switch(payment.getStatus()){
                 case FAILED:
-                    orderService.processPayment(payment);
+                    // If payment was failed, change the order status to UPDATED,
+                    // which means the order need to be updated to construct a valid payment to process
+                    Optional<Order> curOrder = orderService.findOrderById(payment.getOrderId());
+                    if (curOrder.isPresent()) {
+                        Order order = curOrder.get();
+                        orderService.updateOrderStatus(order.getOrderId(), OrderStatus.UPDATED);
+                        logger.info("Payment failed. Order with ID: {} need to be updated to complete payment." , order.getOrderId());
+                    } else {
+                        System.err.println("No order found for Order ID: " + payment.getOrderId());
+                    }
                     break;
                 case COMPLETED:
-                    Optional<Order> curOrder = orderService.completeOrder(payment.getOrderId(), payment.getPaymentId());
+                    Optional<Order> completedOrder = orderService.completeOrder(payment.getOrderId(), payment.getPaymentId());
+                    completedOrder.ifPresentOrElse(
+                            o -> System.out.println("Order completed successfully: " + o),
+                            () -> System.err.println("Failed to complete order for Payment ID: " + payment.getPaymentId())
+                    );
                     break;
 
                 default:
