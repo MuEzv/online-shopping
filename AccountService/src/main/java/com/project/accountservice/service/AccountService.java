@@ -60,6 +60,7 @@ public class AccountService implements AccountServiceImpl {
 
     private AccountResponseDTO mapToResponse(Account acc) {
         return new AccountResponseDTO(
+                acc.getId(),
                 acc.getEmail(),
                 acc.getUsername(),
                 acc.getShippingAddress(),

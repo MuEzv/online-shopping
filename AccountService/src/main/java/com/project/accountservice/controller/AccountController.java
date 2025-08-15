@@ -24,7 +24,7 @@ public class AccountController {
     private AccountService service;
 
     @PutMapping("/{email}")
-    @PreAuthorize("#email == authentication.name")
+    @PreAuthorize("@ownershipChecker.isOwnerEmail(#email, authentication.name) or hasRole('ADMIN')")
     public ResponseEntity<AccountResponseDTO> updateAccount(
             @PathVariable String email,
             @RequestBody AccountRequestDTO request) {
@@ -34,14 +34,14 @@ public class AccountController {
     }
 
     @GetMapping("/{email}")
-    @PreAuthorize("#email == authentication.name")
+    @PreAuthorize("@ownershipChecker.isOwnerEmail(#email, authentication.name)")
     public ResponseEntity<AccountResponseDTO> getAccount(@PathVariable String email) {
         return service.getAccountByEmail(email)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
     @GetMapping("/test/{email}")
-    @PreAuthorize("#email == authentication.name")
+    @PreAuthorize("@ownershipChecker.isOwnerEmail(#email, authentication.name) or hasRole('ADMIN')")
     public String getEmail(@PathVariable String email) {
         return email;
     }
