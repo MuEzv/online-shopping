@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -70,5 +71,27 @@ public class OrderController {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(updatedOrder.get());
+    }
+
+    @PostMapping("/cancel/{id}")
+    public ResponseEntity<String> cancelOrder(@PathVariable String id) {
+        logger.info("Cancelling order with ID: {}", id);
+        Optional<Order> cancelledOrder = orderService.cancelOrder(id);
+        if (cancelledOrder.isEmpty()) {
+            logger.error("Failed to cancel order with ID: {}", id);
+            return ResponseEntity.badRequest().body("Order not found or cannot be cancelled");
+        }
+        return ResponseEntity.ok("Order cancelled successfully. Order ID: " + id);
+    }
+
+    @GetMapping("/getAll")
+    public  ResponseEntity<List<Order>> getAllOrders() {
+        logger.info("Fetching all orders");
+        List<Order> orders = orderService.getAllOrders().get();
+        if (orders.isEmpty()) {
+            logger.warn("No orders found");
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(orders);
     }
 }
