@@ -56,7 +56,7 @@ public class PaymentServiceImpl implements PaymentService {
             throw new IllegalArgumentException("Payment ID exists: " + payment.getPaymentId());
         }
 
-        payment.setStatus(PaymentStatus.PENDING);
+        payment.setStatus(PaymentStatus.COMPLETED);
         payment.setCreatedAt(Instant.now());
         payment.setUpdatedAt(payment.getCreatedAt());
 
@@ -64,15 +64,25 @@ public class PaymentServiceImpl implements PaymentService {
         logger.info("Payment placed with ID: {}, Result: {}", payment.getPaymentId(), result.getInsertedId());
         return paymentCollection.findById(result.getInsertedId()).orElse(payment);
     }
-
     @Override
     public Payment updatePayment(String paymentId, Payment payment) {
+        payment.setPaymentId(paymentId);
+        if (paymentId == null || paymentId.isEmpty()) {
+            logger.error("Cannot update payment: paymentId is null or empty.");
+            return null;
+        }
         Filter filter = Filters.eq("paymentId", paymentId);
         Update update = Update.create()
-                .set("status", payment.getStatus())
-                .set("updatedAt", Instant.now().toString());
+                .set("orderId", payment.getOrderId())
+                .set("userId", payment.getUserId())
+                .set("amount", payment.getAmount())
+                .set("paymentMethod", payment.getPaymentMethod())
+                .set("status", PaymentStatus.UPDATED)
+                .set("updatedAt", Instant.now());
 
         UpdateResult result = paymentCollection.updateOne(filter, update);
+        logger.error("aaa:{}", result.getMatchedCount() );
+
         if (result.getMatchedCount() > 0) {
             return paymentCollection.findById(paymentId).orElse(null);
         } else {
