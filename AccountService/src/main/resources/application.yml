@@ -24,5 +24,10 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
 
+logging:
+  level:
+    com.project.accountservice: DEBUG
+    org.springframework.security: DEBUG
+
 server:
   port: 8082

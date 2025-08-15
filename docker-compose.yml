@@ -1,4 +1,5 @@
-version: '3.9'
+#version: '3.9'
+
 
 services:
   mysql:
@@ -60,6 +61,8 @@ services:
         condition: service_started
     environment:
       - SPRING_PROFILES_ACTIVE=dev
+    env_file:
+      - .env
 
 
   item-service:
@@ -87,7 +90,10 @@ services:
       eureka-service:
         condition: service_started
 
+
+#order -service config
   order-service:
+    env_file: .env
     build:
       context: ./OrderService
       dockerfile: Dockerfile
@@ -95,12 +101,15 @@ services:
       - "8083:8083"
     networks:
       - microservices-network
+    volumes:
+      - ./OrderService:/app
     environment:
       - SPRING_PROFILES_ACTIVE=dev
-      - ASTRA_DB_TOKEN={ASTRA_DB_TOKEN}
-
+      - ASTRA_DB_TOKEN=${ASTRA_DB_TOKEN}
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
 
   payment-service:
+    env_file: .env
     build:
       context: ./PaymentService
       dockerfile: Dockerfile
@@ -110,9 +119,75 @@ services:
       - microservices-network
     environment:
       - SPRING_PROFILES_ACTIVE=dev
-      - ASTRA_DB_TOKEN={ASTRA_DB_TOKEN}
+      - ASTRA_DB_TOKEN=${ASTRA_DB_TOKEN}
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+        - microservices-network
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "2181" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 
+  # first broker for OrderService
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka
+    ports:
+      - "9092:9092" #EXTERNAL
+#      - "9094:9094" #INTERNAL
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: true
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_NUM_PARTITIONS: 3
+      KAFKA_JMX_PORT: 19092
+      KAFKA_JMX_HOSTNAME: kafka
+    depends_on:
+      - zookeeper
+    networks:
+        - microservices-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+#  kafka ui
+  kafka-ui:
+      image: provectuslabs/kafka-ui:latest
+      container_name: kafka-ui
+      ports:
+        - "9093:8080"
+      environment:
+        KAFKA_CLUSTERS_0_NAME: kafka
+        KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+        KAFKA_CLUSTERS_0_METRICS_PORT: 19102
+      networks:
+        - microservices-network
+      depends_on:
+        - kafka
+      logging:
+        driver: "json-file"
+        options:
+          max-size: "10m"
+          max-file: "3"
+
+
+#Network configuration
 networks:
   microservices-network:
     driver: bridge

@@ -1,8 +1,11 @@
 package com.project.controller;
 
-import com.project.entity.ItemDTO;
-import com.project.itemservice.ItemService;
+import com.project.payload.ItemDTO;
+import com.project.feign.AccountClient;
+import com.project.payload.ItemRequestDTO;
+import com.project.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
@@ -12,15 +15,17 @@ import java.util.*;
 public class ItemController {
     @Autowired
     private ItemService itemService;
+    @Autowired
+    private AccountClient accountClient;
 
     @PostMapping("/add")
-    public ResponseEntity<ItemDTO> createItem(@RequestBody ItemDTO itemDTO) {
+    public ResponseEntity<ItemDTO> createItem(@RequestBody ItemRequestDTO itemDTO) {
         ItemDTO createdItem = itemService.createItem(itemDTO);
         return ResponseEntity.ok(createdItem);
     }
 
     @PostMapping("/update")
-    public ResponseEntity<ItemDTO> updateItem(@RequestBody ItemDTO itemDTO) {
+    public ResponseEntity<ItemDTO> updateItem(@RequestBody ItemRequestDTO itemDTO) {
         ItemDTO updatedItem = itemService.updateItem(itemDTO.getId(), itemDTO);
         return ResponseEntity.ok(updatedItem);
     }
@@ -55,4 +60,8 @@ public class ItemController {
         return ResponseEntity.ok(items);
     }
 
+    @GetMapping("/account-email/{email}")
+    public String getAccountEmail(@PathVariable String email) {
+        return accountClient.getEmail(email);
+    }
 }
