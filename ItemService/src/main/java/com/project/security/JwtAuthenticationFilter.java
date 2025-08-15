@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -29,45 +28,64 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String header = request.getHeader("Authorization");
         System.out.println("🧾 Authorization header: " + header);
 
-        String token = (header != null && header.startsWith("Bearer ")) ? header.substring(7) : null;
+        if (!StringUtils.hasText(header)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        // ✅ Internal Token 分支
+        if (header.startsWith("Internal ")) {
+            String internalToken = header.substring(9); // Remove "Internal "
+            if ("my-internal-secret-token".equals(internalToken)) {
+                System.out.println("✅ Internal token authenticated");
+                UsernamePasswordAuthenticationToken auth =
+                        new UsernamePasswordAuthenticationToken(
+                                "internal-service", null, List.of(new SimpleGrantedAuthority("ROLE_INTERNAL"))
+                        );
+                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(auth);
+                chain.doFilter(request, response);
+                System.out.println("✅ Authorities: " + auth.getAuthorities());
+                System.out.println("✅ Authorities on context: " + SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+                return;
+            } else {
+                System.out.println("❌ Invalid internal token");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid internal token");
+                return;
+            }
+        }
+
+        // ✅ Bearer Token 分支
+        String token = header.startsWith("Bearer ") ? header.substring(7) : null;
         System.out.println("🔍 Has text in token: " + StringUtils.hasText(token));
         System.out.println("🔍 Existing Authentication: " + SecurityContextHolder.getContext().getAuthentication());
-        if (StringUtils.hasText(token) && SecurityContextHolder.getContext().getAuthentication() == null) {
-            System.out.println("✅ Found token: " + token);
 
+        if (StringUtils.hasText(token) && SecurityContextHolder.getContext().getAuthentication() == null) {
             try {
-                // sub = accountId
                 String accountId = JwtUtil.extractSubject(token);
                 System.out.println("✅ Extracted accountId: " + accountId);
 
                 if (JwtUtil.validateToken(token, accountId)) {
-                    // ★ 从 JWT 里取 roles，并转换为 GrantedAuthority
-                    List<String> roles = JwtUtil.extractRoles(token); // e.g. ["ROLE_USER","ROLE_ADMIN"]
-                    System.out.println("✅ Extracted Roles: " + roles);
-
+                    List<String> roles = JwtUtil.extractRoles(token);
                     List<GrantedAuthority> authorities = roles.stream()
                             .map(SimpleGrantedAuthority::new)
                             .collect(Collectors.toList());
 
                     UsernamePasswordAuthenticationToken auth =
                             new UsernamePasswordAuthenticationToken(accountId, null, authorities);
-                    System.out.println("✅ Authentication set: " + auth);
-
-                    SecurityContextHolder.getContext().setAuthentication(auth);
-
-                    // ✅ 打印当前登录用户的权限
-                    System.out.println("✅ Authorities: " + auth.getAuthorities());
                     auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(auth);
-                } else{
+                    System.out.println("✅ Authentication set: " + auth);
+                } else {
                     System.out.println("❌ Invalid token for accountId: " + accountId);
-                    SecurityContextHolder.clearContext(); // Clear the context for invalid tokens
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token");
-                    return; // 直接返回，避免继续处理请求
+                    return;
                 }
             } catch (Exception e) {
                 System.out.println("❌ JwtAuthenticationFilter caught exception: " + e.getMessage());
-                e.printStackTrace(); // 打印完整栈追踪，排查问题关键
+                e.printStackTrace();
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token parsing failed");
+                return;
             }
         }
 

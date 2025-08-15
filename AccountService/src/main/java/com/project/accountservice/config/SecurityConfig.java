@@ -48,8 +48,8 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // Allow Swagger access
-                .antMatchers("/account/auth/login", "/account/auth/register","/account/{email}").permitAll()
-                .antMatchers("/account/**", "/items/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/account/auth/login", "/account/auth/register").permitAll()
+                .antMatchers("/account/**", "/items/**").hasAnyRole("USER", "ADMIN","INTERNAL")
                 .antMatchers("/orders/**", "/payments/**").authenticated()
                 .anyRequest().authenticated()
                 .and()

@@ -27,25 +27,28 @@ public class ItemController {
     }
 
     @PostMapping("/update")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'INTERNAL')")
     public ResponseEntity<ItemDTO> updateItem(@RequestBody ItemRequestDTO itemDTO) {
         ItemDTO updatedItem = itemService.updateItem(itemDTO.getId(), itemDTO);
         return ResponseEntity.ok(updatedItem);
     }
 
     @PostMapping("/delete")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'INTERNAL')")
     public ResponseEntity<ItemDTO> deleteItem(@RequestBody Long id) {
         ItemDTO deletedItem = itemService.deleteItembyId(id);
         return ResponseEntity.ok(deletedItem);
     }
 
     @GetMapping("/getAll")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN','INTERNAL')")
     public ResponseEntity<List<ItemDTO>> getAllItems() {
         List<ItemDTO> items = itemService.getAllItems();
         return ResponseEntity.ok(items);
     }
 
     @GetMapping("/Id/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'INTERNAL')")
     public ResponseEntity<ItemDTO> getItemById(@PathVariable Long id) {
         ItemDTO item = itemService.getItemById(id);
         return ResponseEntity.ok(item);

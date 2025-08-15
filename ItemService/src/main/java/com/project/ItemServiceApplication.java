@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @SpringBootApplication
 @EnableFeignClients
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-
 public class ItemServiceApplication {
 
     public static void main(String[] args) {
