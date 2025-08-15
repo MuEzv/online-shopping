@@ -81,10 +81,12 @@ public class PaymentServiceImpl implements PaymentService {
                 .set("updatedAt", Instant.now());
 
         UpdateResult result = paymentCollection.updateOne(filter, update);
-        logger.error("aaa:{}", result.getMatchedCount() );
+        logger.info("UpdateResult: {}", result);
+        logger.error("aaa:{}", result.getMatchedCount());
 
         if (result.getMatchedCount() > 0) {
-            return paymentCollection.findById(paymentId).orElse(null);
+            logger.info("Payment with ID: {} updated successfully.", paymentCollection.findOne(Filters.eq("paymentId", paymentId)).orElse(null).getAmount());
+            return paymentCollection.findOne(Filters.eq("paymentId", paymentId)).orElse(null);
         } else {
             logger.error("Payment with ID: {} not found for update.", paymentId);
             return null;
@@ -93,15 +95,20 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment reversePayment(String paymentId) {
+        if (paymentId == null || paymentId.isEmpty()) {
+            logger.error("Cannot update payment: paymentId is null or empty.");
+            return null;
+        }
         Filter filter = Filters.eq("paymentId", paymentId);
         Update update = Update.create()
+                .set("amount", 0.0)
                 .set("status", PaymentStatus.REFUNDED)
-                .set("updatedAt", Instant.now().toString());
+                .set("updatedAt", Instant.now());
 
         UpdateResult result = paymentCollection.updateOne(filter, update);
         if (result.getMatchedCount() > 0) {
             logger.info("Payment with ID: {} refunded.", paymentId);
-            return paymentCollection.findById(paymentId).orElse(null);
+            return paymentCollection.findOne(Filters.eq("paymentId", paymentId)).orElse(null);
         } else {
             logger.error("Payment with ID: {} not found for refund.", paymentId);
             return null;

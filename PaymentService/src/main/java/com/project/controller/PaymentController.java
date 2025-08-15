@@ -83,7 +83,7 @@ public class PaymentController {
     }
 
     @Transactional
-    @PostMapping("/{paymentId}/reverse")
+    @PostMapping("/reverse/{paymentId}")
     public ResponseEntity<String> reversePayment(@PathVariable String paymentId) {
         try {
             Payment reversed = paymentService.reversePayment(paymentId);
