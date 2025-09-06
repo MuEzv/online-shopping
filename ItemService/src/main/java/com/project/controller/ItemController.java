@@ -4,8 +4,11 @@ package com.project.controller;
 import com.project.itemservice.ItemService;
 import com.project.payload.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 @RestController
@@ -33,8 +36,11 @@ public class ItemController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<ItemDTO>> getAllItems() {
-        List<ItemDTO> items = itemService.getAllItems();
+    public ResponseEntity<List<ItemDTO>> getAllItems(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<ItemDTO> items = itemService.getAllItems(pageable);
         return ResponseEntity.ok(items);
     }
 

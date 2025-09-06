@@ -5,7 +5,10 @@ import com.project.entity.Item;
 import com.project.payload.*;
 import com.project.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 
 import java.util.*;
 
@@ -87,10 +90,11 @@ public class itemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDTO> getAllItems() {
-        List<Item> items = itemRepository.findAll();
+    public List<ItemDTO> getAllItems(Pageable pageable) {
+        Page<Item> itemsPage = itemRepository.findAll(pageable);
+        // List<Item> items = itemRepository.findAll();
         List<ItemDTO> itemDTOs = new ArrayList<>();
-        for (Item item : items) {
+        for (Item item : itemsPage.getContent()) {
             itemDTOs.add(toResponseDTO(item));
         }
         return itemDTOs;

@@ -2,6 +2,7 @@ package com.project.itemservice;
 
 import com.project.payload.*;
 
+import org.springframework.data.domain.Pageable;
 import java.util.*;
 
 public interface ItemService {
@@ -12,7 +13,7 @@ public interface ItemService {
 
     ItemDTO deleteItembyId(Long id);
 
-    List<ItemDTO> getAllItems();
+    List<ItemDTO> getAllItems(Pageable pageable);
 
     ItemDTO getItemById(Long id);
 

@@ -1,6 +1,8 @@
 package com.project.repository;
 
 import com.project.entity.Item;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.*;
@@ -11,5 +13,7 @@ public interface ItemRepository extends MongoRepository<Item, Long> {
     Optional<Item> findByUpc(String upc);
 
     Optional<Item> findById(Long id);
+
+    Page<Item> findAll(Pageable pageable);
 
 }
